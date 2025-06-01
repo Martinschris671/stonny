@@ -1,0 +1,178 @@
+:root {
+  --tin-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --tin-color-white: #ffffff;
+  --tin-color-black: #000000;
+  --tin-color-off-black: #111111;
+  --tin-color-text-primary: var(--tin-color-off-black);
+  --tin-color-text-secondary: #333333;
+  --tin-color-text-subtle: #777777;
+  --tin-color-border: #e0e0e0;
+  --tin-color-accent: var(--tin-color-black);
+
+  --tin-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --tin-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --tin-animation-reveal: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.tin-section {
+  padding: 80px 40px 100px;
+  background-color: var(--tin-color-white);
+  min-height: 90vh;
+}
+.tin-container {
+  max-width: 950px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tin-section-header {
+  text-align: center;
+  margin-bottom: 70px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.tin-section-header.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--tin-animation-gentle),
+    transform 0.8s var(--tin-animation-gentle);
+}
+.tin-main-title {
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--tin-color-off-black);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.tin-subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--tin-color-text-secondary);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.tin-innovations-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.tin-innovation-item {
+  border-bottom: 1px solid var(--tin-color-border);
+  opacity: 0;
+  transform: translateY(25px);
+}
+.tin-innovation-item:first-child {
+  border-top: 1px solid var(--tin-color-border);
+}
+.tin-innovation-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-property: opacity, transform;
+  transition-duration: 0.6s;
+  transition-timing-function: var(--tin-animation-gentle);
+}
+
+.tin-item-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 25px 10px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+.tin-item-button:focus-visible {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* --- FONT AWESOME ICON STYLES --- */
+.tin-item-icon-wrapper {
+  flex-shrink: 0;
+  margin-right: 25px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tin-item-icon-wrapper i {
+  /* Targeting the <i> tag for Font Awesome */
+  font-size: 1.5rem; /* Adjust icon size - e.g., 24px */
+  color: var(--tin-color-text-subtle);
+  transition: color 0.3s var(--tin-animation-gentle),
+    transform 0.3s var(--tin-animation-gentle);
+}
+.tin-innovation-item.is-open .tin-item-icon-wrapper i,
+.tin-item-button:hover .tin-item-icon-wrapper i {
+  color: var(--tin-color-accent);
+  /* transform: scale(1.1); Optional subtle scale */
+}
+/* --- END FONT AWESOME ICON STYLES --- */
+
+.tin-item-text-content {
+  flex-grow: 1;
+}
+.tin-item-title {
+  font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+  font-weight: 500;
+  color: var(--tin-color-text-primary);
+  margin-bottom: 4px;
+  line-height: 1.3;
+  transition: color 0.3s var(--tin-animation-gentle);
+}
+.tin-item-button:hover .tin-item-title {
+  color: var(--tin-color-accent);
+}
+
+.tin-item-description-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--tin-animation-gentle),
+    padding-top 0.5s var(--tin-animation-gentle);
+  padding-left: calc(32px + 25px + 10px);
+}
+.tin-innovation-item.is-open .tin-item-description-wrapper {
+  padding-top: 5px;
+  padding-bottom: 25px;
+}
+.tin-item-description {
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  line-height: 1.7;
+  color: var(--tin-color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .tin-section {
+    padding: 70px 20px 80px;
+  }
+  .tin-section-header {
+    margin-bottom: 50px;
+  }
+  .tin-main-title {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+  }
+  .tin-subtitle {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+  }
+  .tin-item-button {
+    padding: 20px 5px;
+  }
+  .tin-item-icon-wrapper {
+    margin-right: 15px;
+    width: 28px;
+    height: 28px;
+  }
+  .tin-item-icon-wrapper i {
+    font-size: 1.3rem;
+  } /* Adjust mobile icon size */
+  .tin-item-title {
+    font-size: clamp(1.05rem, 3.5vw, 1.3rem);
+  }
+  .tin-item-description-wrapper {
+    padding-left: calc(28px + 15px + 5px);
+  }
+}

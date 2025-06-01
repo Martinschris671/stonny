@@ -1,0 +1,99 @@
+:root {
+  --gqcta-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --gqcta-color-white: #ffffff;
+  --gqcta-color-black: #000000;
+  --gqcta-color-off-black: #111111;
+  --gqcta-color-text-primary: var(--gqcta-color-off-black);
+  --gqcta-color-text-secondary: #555555;
+  --gqcta-color-button-bg: var(--gqcta-color-black);
+  --gqcta-color-button-text: var(--gqcta-color-white);
+  --gqcta-color-button-hover-bg: #282828; /* Slightly lighter black for hover */
+
+  --gqcta-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --gqcta-animation-reveal: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.gqcta-section {
+  background-color: var(--gqcta-color-white);
+  padding: 1px 40px 50px 40px; /* Generous padding for focus */
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  /* JS will add .is-visible for animation */
+}
+.gqcta-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.9s var(--gqcta-animation-reveal),
+    transform 0.9s var(--gqcta-animation-reveal);
+}
+
+.gqcta-container {
+  max-width: 750px; /* Max width for content */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.gqcta-headline {
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem); /* Large, impactful headline */
+  font-weight: 700; /* Bold */
+  color: var(--gqcta-color-text-primary);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.gqcta-subheadline {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--gqcta-color-text-secondary);
+  line-height: 1.6;
+  max-width: 600px; /* Keep subheadline from getting too wide */
+  margin: 0 auto 45px auto; /* Center and add bottom margin */
+}
+
+.gqcta-button {
+  display: inline-block; /* Allows centering via text-align on parent */
+  font-family: var(--gqcta-font-primary);
+  font-size: clamp(1rem, 2.5vw, 1.2rem); /* Large button text */
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--gqcta-color-button-text);
+  background-color: var(--gqcta-color-button-bg);
+  padding: 18px 45px; /* Generous padding for a large button */
+  border-radius: 8px; /* Slightly rounded, modern feel */
+  border: 2px solid var(--gqcta-color-button-bg); /* For consistent sizing and hover */
+  transition: background-color 0.3s var(--gqcta-animation-gentle),
+    color 0.3s var(--gqcta-animation-gentle),
+    transform 0.2s var(--gqcta-animation-gentle),
+    box-shadow 0.3s var(--gqcta-animation-gentle);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.gqcta-button:hover {
+  background-color: var(--gqcta-color-button-hover-bg);
+  border-color: var(--gqcta-color-button-hover-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.gqcta-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gqcta-section {
+    padding: 80px 20px;
+  }
+  .gqcta-headline {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+  .gqcta-subheadline {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    margin-bottom: 35px;
+  }
+  .gqcta-button {
+    padding: 16px 35px;
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+  }
+}

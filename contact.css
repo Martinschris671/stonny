@@ -1,0 +1,219 @@
+:root {
+  --cfs-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --cfs-color-white: #ffffff;
+  --cfs-color-black: #000000;
+  --cfs-color-off-black: #111111;
+  --cfs-color-text-primary: var(--cfs-color-off-black);
+  --cfs-color-text-secondary: #555555; /* For labels, placeholders */
+  --cfs-color-text-subtle: #777777;
+  --cfs-color-border: #dcdcdc; /* Slightly more visible border for inputs */
+  --cfs-color-border-focus: var(--cfs-color-black);
+  --cfs-color-error: #c9190b; /* A modern, less harsh red */
+  --cfs-color-success: #006422; /* A deep, confident green */
+
+  --cfs-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --cfs-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --cfs-animation-reveal: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.cfs-section {
+  padding: 80px 40px 100px; /* Reduced top padding */
+  background-color: var(--cfs-color-white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cfs-container {
+  max-width: 680px; /* Optimized for single column form */
+  width: 100%;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+}
+/* This class 'is-visible' will be added by your scroll-reveal.js */
+.cfs-container.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.9s var(--cfs-animation-reveal) 0.2s,
+    transform 0.9s var(--cfs-animation-reveal) 0.2s;
+}
+
+.cfs-section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.cfs-main-title {
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--cfs-color-off-black);
+}
+.cfs-subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--cfs-color-text-secondary);
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.cfs-contact-form {
+  display: grid;
+  gap: 30px;
+}
+
+.cfs-form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.cfs-form-group label {
+  font-size: 0.8rem; /* Smaller labels */
+  font-weight: 500;
+  color: var(--cfs-color-text-secondary);
+  margin-bottom: 10px; /* More space for label */
+  display: block;
+  text-transform: uppercase; /* Uppercase labels for a sharp look */
+  letter-spacing: 0.5px;
+}
+
+.cfs-form-input,
+.cfs-form-textarea,
+.cfs-form-select {
+  font-family: var(--cfs-font-primary);
+  font-size: 1rem;
+  padding: 12px 0px; /* Padding only bottom for underline effect */
+  background-color: transparent; /* Fully transparent */
+  border: none; /* Remove all default borders */
+  border-bottom: 1.5px solid var(--cfs-color-border); /* Bottom border only */
+  border-radius: 0; /* Sharp corners */
+  color: var(--cfs-color-text-primary);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.3s var(--cfs-animation-smooth),
+    box-shadow 0.3s var(--cfs-animation-smooth);
+}
+.cfs-form-input::placeholder,
+.cfs-form-textarea::placeholder {
+  color: var(--cfs-color-text-subtle);
+  opacity: 0.8;
+}
+
+.cfs-form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333333' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0px center; /* Align arrow to the right edge */
+  background-size: 14px;
+  padding-right: 25px; /* Space for arrow */
+}
+.cfs-form-select:required:invalid {
+  color: var(--cfs-color-text-subtle);
+}
+
+.cfs-form-input:focus,
+.cfs-form-textarea:focus,
+.cfs-form-select:focus {
+  border-color: var(--cfs-color-border-focus);
+  /* Optional: Add a very subtle glow or slightly thicker border */
+  /* box-shadow: 0 1px 0 0 var(--cfs-color-black); */
+}
+
+.cfs-form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Error message styling (class from your JS) */
+.form-error-message-unique {
+  font-size: 0.75rem; /* Smaller error text */
+  color: var(--cfs-color-error);
+  margin-top: 8px;
+  display: none;
+  font-weight: 500;
+}
+.form-error-message-unique.visible {
+  display: block;
+}
+.cfs-form-input.invalid,
+.cfs-form-textarea.invalid,
+.cfs-form-select.invalid {
+  border-color: var(--cfs-color-error) !important;
+}
+
+.cfs-submit-btn {
+  font-family: var(--cfs-font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 15px 35px;
+  background-color: var(--cfs-color-black);
+  color: var(--cfs-color-white);
+  border: 1.5px solid var(--cfs-color-black); /* Consistent border */
+  border-radius: 6px; /* Same as inputs for consistency */
+  cursor: pointer;
+  transition: background-color 0.3s var(--cfs-animation-smooth),
+    color 0.3s var(--cfs-animation-smooth),
+    transform 0.2s var(--cfs-animation-springy);
+  display: block;
+  width: auto;
+  margin: 25px auto 0;
+  text-transform: uppercase; /* Button text uppercase */
+  letter-spacing: 0.5px;
+}
+.cfs-submit-btn:hover {
+  background-color: var(--cfs-color-text-secondary); /* Dark grey hover */
+  border-color: var(--cfs-color-text-secondary);
+  transform: translateY(-2px);
+}
+.cfs-submit-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Form status message (class from your JS) */
+.form-status-message-unique {
+  margin-top: 25px;
+  padding: 14px 18px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+  display: none;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.form-status-message-unique.visible {
+  display: block;
+}
+.form-status-message-unique.success {
+  background-color: #e8f5e9;
+  color: var(--cfs-color-success);
+  border: 1px solid #a5d6a7;
+}
+.form-status-message-unique.error {
+  background-color: #ffebee;
+  color: var(--cfs-color-error);
+  border: 1px solid #ef9a9a;
+}
+
+@media (max-width: 768px) {
+  .cfs-section {
+    padding: 70px 20px 80px;
+  }
+  .cfs-section-header {
+    margin-bottom: 50px;
+  }
+  .cfs-main-title {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+  }
+  .cfs-subtitle {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+  }
+  .cfs-contact-form {
+    gap: 25px;
+  }
+}

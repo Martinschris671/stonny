@@ -1,0 +1,126 @@
+:root {
+  --vm-color-overlay-bg: rgba(0, 0, 0, 0.85);
+  --vm-color-modal-bg: var(--stonny-color-black);
+  --vm-color-close-icon: var(--stonny-color-white);
+  --vm-color-close-icon-hover: #cccccc;
+
+  --vm-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --vm-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --vm-animation-modal-entry: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.vm-video-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--vm-color-overlay-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--vm-animation-gentle),
+    visibility 0s linear 0.45s;
+}
+.vm-video-modal-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.vm-modal-content-wrapper {
+  position: relative;
+  background-color: var(--vm-color-modal-bg);
+  width: 90vw;
+  height: auto;
+  max-width: 1100px;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  transform: scale(0.92) translateY(15px);
+  opacity: 0;
+  transition: transform 0.45s var(--vm-animation-modal-entry),
+    opacity 0.45s var(--vm-animation-modal-entry);
+  overflow: hidden;
+}
+.vm-video-modal-overlay.is-active .vm-modal-content-wrapper {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.vm-video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #080808;
+  color: #555;
+  font-size: 1.2rem;
+  font-style: italic;
+}
+/* Styling for the actual <video> element if needed */
+.vm-video-placeholder video {
+  display: block; /* Remove extra space below video */
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Or 'cover' if you prefer cropping */
+}
+
+.vm-modal-close-button {
+  position: absolute;
+  top: -40px;
+  right: 0px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--vm-color-close-icon);
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  z-index: 2010;
+  transition: color 0.3s var(--vm-animation-smooth),
+    transform 0.3s var(--vm-animation-smooth);
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.vm-video-modal-overlay.is-active .vm-modal-close-button {
+  opacity: 0.8;
+  transform: translateY(0);
+  transition-property: opacity, transform;
+  transition-duration: 0.4s;
+  transition-timing-function: var(--vm-animation-gentle);
+  transition-delay: 0.3s;
+}
+.vm-modal-close-button:hover {
+  color: var(--vm-color-close-icon-hover);
+  transform: rotate(90deg) translateY(0);
+}
+
+@media (max-width: 768px) {
+  .vm-modal-content-wrapper {
+    width: 95vw;
+  }
+  .vm-modal-close-button {
+    top: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding: 0;
+  }
+  .vm-video-modal-overlay.is-active .vm-modal-close-button {
+    opacity: 0.7;
+  }
+}

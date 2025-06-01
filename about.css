@@ -1,0 +1,260 @@
+:root {
+  --aus-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --aus-color-black: #000000;
+  --aus-color-white: #ffffff;
+  --aus-color-off-black: #111111;
+  --aus-color-grey-dark: #333333;
+  --aus-color-grey-medium: #777777;
+  --aus-color-grey-light: #b0b0b0;
+  --aus-color-border: #eaeaea;
+  --aus-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --aus-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.aus-section {
+  padding: 70px 40px 120px; /* UPDATED: Reduced top padding */
+  background-color: var(--aus-color-white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.aus-container {
+  max-width: 850px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.aus-section-title-wrapper {
+  text-align: center;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.aus-section-title-wrapper.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--aus-animation-gentle),
+    transform 0.8s var(--aus-animation-gentle);
+}
+
+.aus-section-main-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--aus-color-off-black);
+}
+
+.aus-section-tagline {
+  font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--aus-color-grey-dark);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.aus-tabs-navigation {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  border-bottom: 1px solid var(--aus-color-border);
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.aus-tabs-navigation.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--aus-animation-gentle) 0.2s,
+    transform 0.8s var(--aus-animation-gentle) 0.2s;
+}
+
+.aus-tab-button {
+  font-family: var(--aus-font-primary);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--aus-color-grey-medium);
+  background-color: transparent;
+  border: none;
+  padding: 18px 25px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s var(--aus-animation-smooth);
+  outline: none;
+}
+.aus-tab-button:hover {
+  color: var(--aus-color-off-black);
+}
+.aus-tab-button.is-active {
+  color: var(--aus-color-off-black);
+}
+.aus-active-tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  height: 2.5px;
+  background-color: var(--aus-color-off-black);
+  transition: left 0.4s var(--aus-animation-gentle),
+    width 0.4s var(--aus-animation-gentle);
+}
+
+.aus-tab-content-panel {
+  position: relative;
+  min-height: 300px;
+}
+
+.aus-tab-content {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--aus-animation-gentle),
+    visibility 0s linear 0.5s, transform 0.5s var(--aus-animation-gentle);
+}
+.aus-tab-content.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  position: relative;
+  transition: opacity 0.5s var(--aus-animation-gentle) 0.1s,
+    visibility 0s linear 0s, transform 0.5s var(--aus-animation-gentle) 0.1s;
+}
+
+.aus-content-heading {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: var(--aus-color-off-black);
+}
+.aus-tab-content[data-content="who-we-are"] .aus-content-heading {
+  text-align: center;
+}
+
+.aus-content-text p,
+.aus-values-list li .aus-value-description {
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  line-height: 1.8;
+  color: var(--aus-color-grey-dark);
+  margin-bottom: 1.2em;
+}
+.aus-content-text p:last-child {
+  margin-bottom: 0;
+}
+
+.aus-company-details {
+  margin-top: 30px;
+  font-size: 0.8rem;
+  color: var(--aus-color-grey-medium);
+  text-align: center;
+  border-top: 1px solid var(--aus-color-border);
+  padding-top: 20px;
+}
+.aus-company-details span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.aus-vision-mission-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.aus-values-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.aus-value-item {
+  border-bottom: 1px solid var(--aus-color-border);
+}
+.aus-value-item:first-child {
+  border-top: 1px solid var(--aus-color-border);
+}
+.aus-value-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+.aus-value-title {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 600;
+  color: var(--aus-color-off-black);
+}
+.aus-value-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.35s var(--aus-animation-smooth);
+  position: relative;
+}
+.aus-value-icon::before,
+.aus-value-icon::after {
+  content: "";
+  position: absolute;
+  background-color: var(--aus-color-off-black);
+  transition: transform 0.35s var(--aus-animation-smooth);
+}
+.aus-value-icon::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+.aus-value-icon::after {
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  transform: translateX(-50%);
+}
+.aus-value-item.is-open .aus-value-icon::after {
+  transform: translateX(-50%) rotate(90deg);
+}
+
+.aus-value-description-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s var(--aus-animation-gentle),
+    padding-bottom 0.45s var(--aus-animation-gentle);
+}
+.aus-value-item.is-open .aus-value-description-wrapper {
+  padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .aus-section {
+    padding: 60px 20px 100px;
+  } /* Adjusted top padding for mobile too */
+  .aus-section-title-wrapper {
+    margin-bottom: 60px;
+  }
+  .aus-section-main-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+  .aus-section-tagline {
+    font-size: clamp(1rem, 3.5vw, 1.4rem);
+  }
+  .aus-tabs-navigation {
+    margin-bottom: 40px;
+  }
+  .aus-tab-button {
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+    padding: 15px;
+  }
+}

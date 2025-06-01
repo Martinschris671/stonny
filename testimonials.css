@@ -1,0 +1,202 @@
+:root {
+  --tst-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --tst-color-white: #ffffff;
+  --tst-color-black: #000000;
+  --tst-color-off-black: #111111;
+  --tst-color-text-primary: var(--tst-color-off-black);
+  --tst-color-text-secondary: #333333; /* For author details */
+  --tst-color-text-quote: #222222; /* Slightly different for quote text itself */
+  --tst-color-text-meta: #777777;
+  --tst-color-accent-graphic: rgba(
+    0,
+    0,
+    0,
+    0.03
+  ); /* Extremely subtle graphic */
+  --tst-color-nav-button: #000000;
+  --tst-color-nav-button-hover: #444444;
+
+  --tst-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --tst-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --tst-animation-text-reveal: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.tst-section {
+  padding: 80px 40px 100px; /* Adjusted top padding */
+  background-color: var(--tst-color-white);
+  min-height: 80vh; /* Can be less than 100vh for a content section */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center content if it's not too tall */
+  position: relative;
+  overflow: hidden;
+}
+
+.tst-container {
+  max-width: 800px; /* Optimal width for readable testimonials */
+  width: 100%;
+  margin: 0 auto;
+  position: relative; /* For positioning graphic accent */
+}
+
+.tst-section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.tst-section-header.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--tst-animation-gentle),
+    transform 0.8s var(--tst-animation-gentle);
+}
+.tst-main-title {
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  color: var(--tst-color-off-black);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Abstract Graphic Accent (e.g., large quote mark) */
+.tst-graphic-accent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Georgia, serif; /* Or a display font for quotes */
+  font-size: clamp(15rem, 40vw, 25rem); /* Very large */
+  font-weight: 300;
+  color: var(--tst-color-accent-graphic);
+  line-height: 0.7;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.8s var(--tst-animation-gentle) 0.3s; /* Delay its appearance */
+}
+.tst-graphic-accent.is-visible {
+  opacity: 1;
+}
+
+.tst-slider-wrapper {
+  position: relative; /* For positioning nav buttons */
+  z-index: 1; /* Above graphic accent */
+  min-height: 250px; /* Ensure space for text */
+  display: flex; /* For centering content if needed */
+  align-items: center;
+}
+
+.tst-testimonial-content {
+  width: 100%;
+  text-align: center;
+  /* JS will handle transitions between items */
+}
+
+.tst-testimonial-quote {
+  font-size: clamp(1.3rem, 3vw, 1.8rem); /* Larger quote text */
+  font-weight: 300; /* Lighter for elegance */
+  line-height: 1.6;
+  color: var(--tst-color-text-quote);
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(15px);
+  /* Transition applied by JS on change */
+}
+
+.tst-testimonial-author {
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-weight: 600;
+  color: var(--tst-color-text-primary);
+  opacity: 0;
+  transform: translateY(15px);
+  /* Transition applied by JS on change */
+}
+.tst-testimonial-author-company {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--tst-color-text-meta);
+  margin-top: 5px;
+}
+
+/* Animation classes for text items */
+.tst-text-item.is-entering {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s var(--tst-animation-text-reveal) 0.2s,
+    transform 0.6s var(--tst-animation-text-reveal) 0.2s;
+}
+.tst-text-item.is-exiting {
+  opacity: 0;
+  transform: translateY(-15px); /* Or other direction */
+  transition: opacity 0.4s var(--tst-animation-text-reveal),
+    transform 0.4s var(--tst-animation-text-reveal);
+}
+
+.tst-slider-navigation {
+  display: flex;
+  justify-content: center; /* Center nav buttons */
+  align-items: center;
+  margin-top: 40px;
+  gap: 15px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.tst-slider-navigation.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--tst-animation-gentle) 0.5s,
+    transform 0.8s var(--tst-animation-gentle) 0.5s;
+}
+
+.tst-nav-button {
+  background: none;
+  border: 1.5px solid var(--tst-color-nav-button);
+  color: var(--tst-color-nav-button);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s var(--tst-animation-smooth),
+    color 0.3s var(--tst-animation-smooth),
+    transform 0.2s var(--tst-animation-smooth);
+  font-size: 1.1rem; /* For arrow characters */
+  line-height: 1;
+}
+.tst-nav-button:hover {
+  background-color: var(--tst-color-nav-button-hover);
+  color: var(--tst-color-white);
+  border-color: var(--tst-color-nav-button-hover);
+}
+.tst-nav-button:active {
+  transform: scale(0.95);
+}
+.tst-nav-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tst-section {
+    padding: 70px 20px 80px;
+  }
+  .tst-section-header {
+    margin-bottom: 50px;
+  }
+  .tst-main-title {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+  }
+  .tst-graphic-accent {
+    font-size: clamp(12rem, 35vw, 20rem);
+  }
+  .tst-testimonial-quote {
+    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  }
+}

@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STONNY - Building your vision with excellence</title>
+    <link rel="stylesheet" href="about.css" />
+    <link rel="stylesheet" href="services.css" />
+    <link rel="stylesheet" href="testimonials.css" />
+    <!-- <link rel="stylesheet" href="project.css" /> -->
+    <link rel="stylesheet" href="client.css" />
+    <link rel="stylesheet" href="contact.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="faq.css" />
+    <link rel="stylesheet" href="video.css" />
+    <link rel="stylesheet" href="tin.css" />
+    <link rel="stylesheet" href="cta.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+      :root {
+        --stonny-color-black: #000000;
+        --stonny-color-white: #ffffff;
+        --stonny-color-off-white: #f8f8f8; /* For subtle background on scrolled nav */
+        --stonny-color-text-primary: var(
+          --stonny-color-black
+        ); /* Primary text is black on white bg */
+        --stonny-color-text-secondary: #333333;
+        --stonny-color-text-subtle: #777777;
+        --stonny-color-border-light-subtle: rgba(0, 0, 0, 0.07);
+
+        --stonny-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+
+        --stonny-nav-height: 75px; /* Adjusted nav height */
+        --stonny-animation-swift: cubic-bezier(0.4, 0, 0.2, 1);
+        --stonny-animation-subtle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --stonny-animation-hero-text: cubic-bezier(
+          0.215,
+          0.61,
+          0.355,
+          1
+        ); /* Smooth easeOutCubic */
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        font-size: 16px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--stonny-font-primary);
+        background-color: var(--stonny-color-white);
+        color: var(--stonny-color-text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body.no-scroll-stonny {
+        overflow-y: hidden;
+      }
+
+      /* --- Navigation Bar (UPDATED) --- */
+      .stonny-site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--stonny-nav-height);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        z-index: 1000;
+        background-color: transparent;
+        border-bottom: 1px solid transparent;
+        transition: background-color 0.35s var(--stonny-animation-subtle),
+          border-bottom-color 0.35s var(--stonny-animation-subtle),
+          box-shadow 0.35s var(--stonny-animation-subtle);
+        opacity: 0;
+        transform: translateY(-100%);
+        animation: stonny-slideDownNav 0.8s var(--stonny-animation-subtle) 1.6s
+          forwards;
+      }
+
+      .stonny-site-header.scrolled {
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--stonny-color-border-light-subtle);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      @keyframes stonny-slideDownNav {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .stonny-site-logo a {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--stonny-color-text-primary);
+        text-decoration: none;
+        letter-spacing: 0.5px;
+      }
+
+      .stonny-main-nav {
+        display: flex;
+        align-items: center;
+      }
+
+      .stonny-main-nav ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .stonny-main-nav li {
+        margin-left: 35px; /* UPDATED Spacing */
+      }
+      .stonny-main-nav li:first-child {
+        margin-left: 0;
+      }
+
+      .stonny-main-nav a {
+        font-size: 0.85rem; /* UPDATED size for uppercase */
+        font-weight: 700; /* UPDATED to BOLD */
+        text-transform: uppercase; /* UPDATED to CAPITALIZED */
+        letter-spacing: 0.8px; /* UPDATED letter spacing for uppercase */
+        color: var(--stonny-color-text-secondary);
+        text-decoration: none;
+        padding: 8px 4px;
+        position: relative;
+        transition: color 0.3s var(--stonny-animation-subtle);
+        display: inline-flex; /* For icon alignment */
+        align-items: center;
+      }
+
+      .stonny-main-nav a .nav-icon {
+        /* Style for icon in nav link */
+        width: 14px;
+        height: 14px;
+        fill: currentColor;
+        margin-right: 6px; /* Space between icon and text */
+      }
+
+      .stonny-main-nav a::after {
+        /* Underline effect */
+        content: "";
+        position: absolute;
+        bottom: -3px; /* Adjusted position */
+        left: 50%; /* Centered */
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px; /* Slightly thicker */
+        background-color: var(--stonny-color-text-primary);
+        transition: width 0.3s var(--stonny-animation-swift);
+      }
+
+      .stonny-main-nav a:hover,
+      .stonny-main-nav a.stonny-active-link {
+        color: var(--stonny-color-text-primary);
+      }
+
+      /* Full width underline for hover on NON-ACTIVE links */
+      .stonny-main-nav a:not(.stonny-active-link):hover::after {
+        width: 100%;
+      }
+
+      /* Static, short, centered underline for ACTIVE link */
+      .stonny-main-nav a.stonny-active-link::after {
+        width: 25px; /* UPDATED: Short underline for active link */
+        /* Opacity 1 and no transition needed here, it's static for active */
+      }
+
+      /* Hamburger Toggle (UPDATED for "normal" look) */
+      .stonny-nav-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0; /* Remove padding to use width/height for precise alignment */
+        z-index: 1001;
+        width: 24px; /* UPDATED width */
+        height: 18px; /* UPDATED height (total height of bars area) */
+        position: relative;
+      }
+      .stonny-hamburger-bar {
+        display: block;
+        width: 100%; /* Takes full width of toggle button */
+        height: 2.5px; /* UPDATED thickness */
+        background-color: var(--stonny-color-text-primary);
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s var(--stonny-animation-swift),
+          opacity 0.3s var(--stonny-animation-swift),
+          top 0.3s var(--stonny-animation-swift);
+        border-radius: 1px;
+      }
+      .stonny-hamburger-bar:nth-child(1) {
+        top: 0;
+      } /* Top bar */
+      .stonny-hamburger-bar:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+      } /* Middle bar, centered */
+      .stonny-hamburger-bar:nth-child(3) {
+        bottom: 0;
+        top: auto;
+      } /* Bottom bar */
+
+      .stonny-nav-toggle.is-active .stonny-hamburger-bar:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+      .stonny-nav-toggle.is-active .stonny-hamburger-bar:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      .stonny-nav-toggle.is-active .stonny-hamburger-bar:nth-child(3) {
+        top: 50%;
+        transform: translateY(-50%) rotate(-45deg);
+      }
+
+      /* --- Hero Section --- */
+      .stonny-hero-section {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        position: relative;
+        overflow: hidden;
+        background-color: var(
+          --stonny-color-white
+        ); /* Base, visible on left panel */
+      }
+
+      /* Overall hero background image, primarily visible through the right panel or transparent areas */
+      .stonny-hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url(""); /* Subtle architectural background */
+        background-size: cover;
+        background-position: center;
+        filter: grayscale(0.8) brightness(0.7) contrast(1.1); /* Heavy treatment for subtlety */
+        opacity: 0; /* Fades in */
+        animation: stonny-fadeInBg 2s var(--stonny-animation-subtle) 0.3s
+          forwards;
+        z-index: 0;
+      }
+      @keyframes stonny-fadeInBg {
+        to {
+          opacity: 0.25;
+        }
+      } /* Very subtle presence */
+
+      .stonny-hero-content-left {
+        flex: 0 0 55%; /* Left panel slightly larger */
+        background-color: var(
+          --stonny-color-white
+        ); /* WHITE background for text */
+        color: var(--stonny-color-text-primary); /* BLACK text */
+        padding: calc(var(--stonny-nav-height) + 8vh) 60px 8vh; /* Responsive padding */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 2; /* Above overall hero background */
+        opacity: 0;
+        transform: translateX(-40px); /* Start slightly left */
+        animation: stonny-slideInTextPanel 1.2s
+          var(--stonny-animation-hero-text) 0.5s forwards;
+      }
+
+      @keyframes stonny-slideInTextPanel {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .stonny-hero-sub-heading {
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--stonny-color-text-subtle);
+        margin-bottom: 25px; /* Increased space */
+        opacity: 0;
+        transform: translateY(20px);
+        animation: stonny-revealTextItem 0.8s var(--stonny-animation-hero-text)
+          1s forwards;
+      }
+
+      .stonny-hero-main-heading {
+        font-size: clamp(2.8rem, 6vw, 5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 35px; /* Increased space */
+        letter-spacing: -0.025em; /* Fine-tune letter spacing */
+        color: var(--stonny-color-text-primary);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: stonny-revealTextItem 0.9s var(--stonny-animation-hero-text)
+          1.2s forwards;
+      }
+
+      .stonny-hero-description {
+        font-size: clamp(0.95rem, 1.8vw, 1.05rem); /* Slightly smaller max */
+        line-height: 1.75;
+        color: var(--stonny-color-text-secondary);
+        max-width: 480px;
+        margin-bottom: 45px; /* Increased space */
+        opacity: 0;
+        transform: translateY(20px);
+        animation: stonny-revealTextItem 0.8s var(--stonny-animation-hero-text)
+          1.4s forwards;
+      }
+
+      .stonny-hero-cta-group {
+        display: flex;
+        gap: 18px; /* Slightly reduced gap */
+        align-items: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: stonny-revealTextItem 0.8s var(--stonny-animation-hero-text)
+          1.6s forwards;
+      }
+
+      .stonny-hero-button {
+        font-size: 0.9rem;
+        font-weight: 600; /* Slightly bolder button text */
+        text-decoration: none;
+        padding: 13px 30px; /* Adjusted padding */
+        border-radius: 6px; /* Less rounded, more sharp */
+        transition: background-color 0.3s var(--stonny-animation-subtle),
+          color 0.3s var(--stonny-animation-subtle),
+          transform 0.2s var(--stonny-animation-springy),
+          box-shadow 0.3s var(--stonny-animation-subtle);
+        display: inline-flex;
+        align-items: center;
+        border: 1.5px solid transparent; /* For consistent sizing with secondary */
+      }
+      .stonny-hero-button svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        transition: transform 0.3s var(--stonny-animation-subtle);
+      }
+      .stonny-hero-button:hover svg.arrow {
+        transform: translateX(4px);
+      }
+      .stonny-hero-button svg.play {
+        margin-right: 8px;
+        margin-left: 0;
+      }
+
+      .stonny-button-primary {
+        background-color: var(--stonny-color-black);
+        color: var(--stonny-color-white);
+        border-color: var(--stonny-color-black);
+      }
+      .stonny-button-primary:hover {
+        background-color: var(
+          --stonny-color-text-secondary
+        ); /* Darken slightly */
+        border-color: var(--stonny-color-text-secondary);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .stonny-button-secondary {
+        background-color: transparent;
+        color: var(--stonny-color-text-primary);
+        border: 1.5px solid var(--stonny-color-border-light-subtle);
+      }
+      .stonny-button-secondary:hover {
+        cursor: pointer;
+        background-color: var(
+          --stonny-color-off-white
+        ); /* Very subtle hover bg */
+        border-color: var(--stonny-color-text-secondary);
+        color: var(--stonny-color-text-primary);
+      }
+      .stonny-hero-button:active {
+        transform: scale(0.97);
+      }
+
+      @keyframes stonny-revealTextItem {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .stonny-hero-image-right {
+        flex: 0 0 45%; /* Right panel slightly smaller */
+        background-size: cover;
+        background-position: center 30%; /* Adjust vertical position of image */
+        position: relative;
+        z-index: 1; /* Above overall hero bg, below text panel overlay if any */
+        opacity: 0;
+        transform: scale(1.1) translateX(20px); /* Start slightly scaled and right */
+        animation: stonny-revealImagePanel 1.4s
+          var(--stonny-animation-hero-text) 0.7s forwards;
+        /* Image applied via CSS background-image for better control */
+        background-image: url("images/hero.webp");
+      }
+
+      @keyframes stonny-revealImagePanel {
+        to {
+          opacity: 1;
+          transform: scale(1) translateX(0);
+        }
+      }
+
+      /* Responsive for Hero and Nav */
+      @media (max-width: 992px) {
+        /* Tablet */
+        .stonny-site-header {
+          padding: 0 30px;
+        }
+        .stonny-hero-content-left {
+          flex-basis: 60%; /* Text panel takes more space */
+          padding: calc(var(--stonny-nav-height) + 6vh) 40px 6vh;
+        }
+        .stonny-hero-image-right {
+          flex-basis: 40%;
+        }
+        .stonny-hero-main-heading {
+          font-size: clamp(2.2rem, 5.5vw, 4rem);
+        }
+      }
+
+      @media (max-width: 768px) {
+        /* Mobile */
+        .stonny-site-header {
+          padding: 0 20px;
+        }
+        .stonny-main-nav {
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 85%;
+          max-width: 300px;
+          height: 100vh;
+          background-color: var(--stonny-color-white);
+          box-shadow: -3px 0 10px rgba(0, 0, 0, 0.08);
+          transform: translateX(100%);
+          transition: transform 0.35s var(--stonny-animation-swift);
+          padding-top: var(--stonny-nav-height);
+          display: flex;
+          flex-direction: column;
+        }
+        .stonny-main-nav.is-open {
+          transform: translateX(0);
+        }
+        .stonny-main-nav ul {
+          flex-direction: column;
+          width: 100%;
+          align-items: flex-start;
+        }
+        .stonny-main-nav li {
+          margin: 0;
+          width: 100%;
+        }
+        .stonny-main-nav a {
+          display: block;
+          padding: 16px 25px;
+          font-size: 1.05rem; /* Slightly larger mobile nav text */
+          border-bottom: 1px solid var(--stonny-color-border-light-subtle);
+          color: var(--stonny-color-text-primary);
+        }
+        .stonny-main-nav li:last-child a {
+          border-bottom: none;
+        }
+        .stonny-main-nav a:hover,
+        .stonny-main-nav a.stonny-active-link {
+          background-color: var(--stonny-color-off-white);
+        }
+        .stonny-main-nav a::after {
+          display: none;
+        }
+
+        .stonny-nav-cta-button {
+          display: none;
+        } /* Hide separate CTA in nav, can be added to mobile menu list */
+        .stonny-nav-toggle {
+          display: block;
+        }
+
+        .stonny-hero-section {
+          flex-direction: column;
+          height: auto;
+          min-height: 100vh;
+        }
+        .stonny-hero-content-left,
+        .stonny-hero-image-right {
+          flex-basis: auto;
+          width: 100%;
+        }
+        .stonny-hero-content-left {
+          padding: calc(var(--stonny-nav-height) + 5vh) 25px 5vh;
+          min-height: 60vh;
+          text-align: left; /* Align text left on mobile as per many modern designs */
+          justify-content: flex-end; /* Push content towards bottom */
+          padding-bottom: 60px;
+        }
+        .stonny-hero-cta-group {
+          justify-content: flex-start;
+        }
+
+        .stonny-hero-image-right {
+          min-height: 40vh; /* Shorter image panel on mobile */
+          background-position: center 40%; /* Adjust image focus */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="stonny-site-header" id="siteHeader">
+      <div class="stonny-site-logo">
+        <a href="#hero" class="scroll-link"></a>
+      </div>
+      <nav class="stonny-main-nav" id="mainNav">
+        <ul>
+          <li>
+            <a href="#hero" class="scroll-link stonny-active-link">Home</a>
+          </li>
+          <li><a href="#about" class="scroll-link">About</a></li>
+          <li><a href="#services" class="scroll-link">Services</a></li>
+          <li><a href="#projects" class="scroll-link">Projects</a></li>
+          <li>
+            <a href="#contact" class="scroll-link">
+              <svg
+                class="nav-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.001c.063.263.01.546-.152.758L4.97 8.730a10.75 10.75 0 006.591 6.591l2.201-1.671a.999.999 0 01.758-.152l3.001.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z"
+                ></path>
+              </svg>
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button
+        class="stonny-nav-toggle"
+        id="navToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="mainNav"
+      >
+        <span class="stonny-hamburger-bar"></span>
+        <span class="stonny-hamburger-bar"></span>
+        <span class="stonny-hamburger-bar"></span>
+      </button>
+    </header>
+
+    <main>
+      <section class="stonny-hero-section" id="hero">
+        <div class="stonny-hero-content-left">
+          <p class="stonny-hero-sub-heading">-- #1 CONSTRUCTION AGENCY --</p>
+          <h1 class="stonny-hero-main-heading">
+            Building your vision with excellence
+          </h1>
+          <p class="stonny-hero-description">
+            Turn your construction dreams into reality with our expert team &
+            innovative solutions. We're here to bring your vision to life,
+            delivering quality and excellence in every project.
+          </p>
+          <div class="stonny-hero-cta-group">
+            <a
+              href="#contact"
+              class="stonny-hero-button stonny-button-primary scroll-link"
+            >
+              Get Started
+              <svg
+                class="arrow"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+            <a
+              class="stonny-hero-button stonny-button-secondary"
+              id="openVideoModalBtn"
+            >
+              <svg
+                class="play"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Watch Video
+            </a>
+          </div>
+        </div>
+        <div class="stonny-hero-image-right">
+          <!-- Right panel image is applied via CSS background-image -->
+        </div>
+
+        <div class="vm-video-modal-overlay" id="videoModalOverlay">
+          <div class="vm-modal-content-wrapper">
+            <div class="vm-video-placeholder" id="videoPlayerContainer">
+              <span>Video Player Area</span>
+            </div>
+          </div>
+          <button
+            class="vm-modal-close-button"
+            id="closeVideoModalBtn"
+            aria-label="Close video player"
+          >
+            ×
+          </button>
+        </div>
+      </section>
+      <section class="aus-section" id="about">
+        <div class="aus-container">
+          <div class="aus-section-title-wrapper" id="aboutUsTitleArea">
+            <h2 class="aus-section-main-title">About STONNY</h2>
+            <p class="aus-section-tagline">
+              We aim to shape a future where every structure we create stands as
+              a testament to our dedication and expertise.
+            </p>
+          </div>
+
+          <nav class="aus-tabs-navigation" id="aboutTabsNav">
+            <button class="aus-tab-button is-active" data-tab="who-we-are">
+              Who We Are
+            </button>
+            <button class="aus-tab-button" data-tab="vision-mission">
+              Vision & Mission
+            </button>
+            <button class="aus-tab-button" data-tab="values">Our Values</button>
+            <div class="aus-active-tab-indicator" id="activeTabIndicator"></div>
+          </nav>
+
+          <div class="aus-tab-content-panel">
+            <div class="aus-tab-content is-active" data-content="who-we-are">
+              <h3 class="aus-content-heading">WHO IS STONNY</h3>
+              <div class="aus-content-text">
+                <p>
+                  STONNY CONSTRUCTION is a trusted name in the construction
+                  industry, committed to delivering excellence in every project
+                  we undertake. With expertise in residential, commercial, and
+                  industrial construction, we pride ourselves on transforming
+                  ideas into reality, creating spaces that inspire and endure.
+                </p>
+                <p>
+                  We are committed to providing the best possible construction
+                  expertise & service to ensure cost-effective and successful
+                  projects. We work closely with our clients to accurately
+                  interpret their dreams/visions in drawings and bring them to
+                  the desired reality through construction solutions to meet
+                  their needs. We communicate with our clients throughout the
+                  construction process to keep them informed of progress and to
+                  ensure that our project keeps on schedule and within budget.
+                </p>
+                <p>
+                  We provide engineering projects, construction services,
+                  Architectural designs, site supervision and consultancy.
+                </p>
+              </div>
+            </div>
+
+            <div class="aus-tab-content" data-content="vision-mission">
+              <div class="aus-vision-mission-wrapper">
+                <div>
+                  <h3 class="aus-content-heading">OUR VISION</h3>
+                  <div class="aus-content-text">
+                    <p>
+                      To be the most trusted and innovative construction
+                      company, shaping skylines and communities while setting
+                      benchmarks in quality, sustainability, and client
+                      satisfaction.
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="aus-content-heading">OUR MISSION</h3>
+                  <div class="aus-content-text">
+                    <p>
+                      To build exceptional structures that meet the highest
+                      standards of quality, safety and sustainability while
+                      exceeding client expectations.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="aus-tab-content" data-content="values">
+              <h3 class="aus-content-heading">OUR VALUES</h3>
+              <ul class="aus-values-list">
+                <li class="aus-value-item">
+                  <button class="aus-value-button">
+                    <span class="aus-value-title">QUALITY</span>
+                    <span class="aus-value-icon"></span>
+                  </button>
+                  <div class="aus-value-description-wrapper">
+                    <p class="aus-value-description">
+                      We ensure uncompromising standards in materials, design
+                      and execution.
+                    </p>
+                  </div>
+                </li>
+                <li class="aus-value-item">
+                  <button class="aus-value-button">
+                    <span class="aus-value-title">INNOVATION</span>
+                    <span class="aus-value-icon"></span>
+                  </button>
+                  <div class="aus-value-description-wrapper">
+                    <p class="aus-value-description">
+                      Leveraging technologies and creative solutions to stay
+                      ahead in the industry.
+                    </p>
+                  </div>
+                </li>
+                <li class="aus-value-item">
+                  <button class="aus-value-button">
+                    <span class="aus-value-title">INTEGRITY</span>
+                    <span class="aus-value-icon"></span>
+                  </button>
+                  <div class="aus-value-description-wrapper">
+                    <p class="aus-value-description">
+                      Upholding honesty, transparency, and ethical practices in
+                      every interaction.
+                    </p>
+                  </div>
+                </li>
+                <li class="aus-value-item">
+                  <button class="aus-value-button">
+                    <span class="aus-value-title">SUSTAINABILITY</span>
+                    <span class="aus-value-icon"></span>
+                  </button>
+                  <div class="aus-value-description-wrapper">
+                    <p class="aus-value-description">
+                      Building with a commitment to environmental responsibility
+                      and long-term value.
+                    </p>
+                  </div>
+                </li>
+                <li class="aus-value-item">
+                  <button class="aus-value-button">
+                    <span class="aus-value-title">CUSTOMER FOCUS</span>
+                    <span class="aus-value-icon"></span>
+                  </button>
+                  <div class="aus-value-description-wrapper">
+                    <p class="aus-value-description">
+                      Prioritizing the needs and satisfaction of our clients in
+                      every project.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="scg-section" id="services">
+        <div class="scg-container">
+          <header class="scg-section-header" id="servicesCardHeader">
+            <h2 class="scg-main-title">Our Services</h2>
+            <p class="scg-subtitle">
+              At STONNY CONSTRUCTION we offer a comprehensive range of services
+              tailored to meet the diverse needs of our clients. From concept to
+              completion, we deliver excellence at every stage of the project.
+            </p>
+          </header>
+
+          <div class="scg-services-grid" id="servicesGrid">
+            <!-- Service cards will be populated by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <section class="tin-section">
+        <div class="tin-container">
+          <header class="tin-section-header" id="techInnovationHeader">
+            <h2 class="tin-main-title">Technology & Innovation</h2>
+            <p class="tin-subtitle">
+              Pioneering the future of construction with cutting-edge
+              technologies and sustainable practices to deliver superior quality
+              and efficiency.
+            </p>
+          </header>
+
+          <div class="tin-innovations-grid">
+            <!-- Item 1: BIM Integration -->
+            <div class="tin-innovation-item">
+              <button class="tin-item-button" aria-expanded="false">
+                <div class="tin-item-icon-wrapper">
+                  <i class="fas fa-cubes"></i>
+                  <!-- Font Awesome: Cubes for BIM -->
+                </div>
+                <div class="tin-item-text-content">
+                  <h3 class="tin-item-title">BIM Integration</h3>
+                </div>
+              </button>
+              <div class="tin-item-description-wrapper">
+                <p class="tin-item-description">
+                  Utilizing Building Information Modeling (BIM) for
+                  comprehensive 3D modeling, clash detection, and collaborative
+                  project management, enhancing precision and efficiency from
+                  design to handover.
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 2: Drone Technology -->
+            <div class="tin-innovation-item">
+              <button class="tin-item-button" aria-expanded="false">
+                <div class="tin-item-icon-wrapper">
+                  <i class="fas fa-helicopter"></i>
+                  <!-- Font Awesome: Helicopter (closest to drone in free set) or fa-camera for surveying -->
+                  <!-- For Pro, you might use: <i class="fal fa-drone-alt"></i> -->
+                </div>
+                <div class="tin-item-text-content">
+                  <h3 class="tin-item-title">
+                    Drone Site Surveying & Monitoring
+                  </h3>
+                </div>
+              </button>
+              <div class="tin-item-description-wrapper">
+                <p class="tin-item-description">
+                  Employing advanced drone technology for accurate topographical
+                  surveys, progress monitoring, and site inspections, providing
+                  real-time data and enhanced safety.
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 3: Sustainable Materials -->
+            <div class="tin-innovation-item">
+              <button class="tin-item-button" aria-expanded="false">
+                <div class="tin-item-icon-wrapper">
+                  <i class="fas fa-leaf"></i>
+                  <!-- Font Awesome: Leaf for Sustainability -->
+                </div>
+                <div class="tin-item-text-content">
+                  <h3 class="tin-item-title">Advanced Sustainable Materials</h3>
+                </div>
+              </button>
+              <div class="tin-item-description-wrapper">
+                <p class="tin-item-description">
+                  Prioritizing the use of eco-friendly, recycled, and
+                  locally-sourced materials with low environmental impact,
+                  contributing to LEED certifications and greener building
+                  practices.
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 4: Smart Building Technology -->
+            <div class="tin-innovation-item">
+              <button class="tin-item-button" aria-expanded="false">
+                <div class="tin-item-icon-wrapper">
+                  <i class="fas fa-house-signal"></i>
+                  <!-- Font Awesome: House with signal for Smart Building -->
+                  <!-- Or <i class="fas fa-microchip"></i> -->
+                </div>
+                <div class="tin-item-text-content">
+                  <h3 class="tin-item-title">Smart Building & Automation</h3>
+                </div>
+              </button>
+              <div class="tin-item-description-wrapper">
+                <p class="tin-item-description">
+                  Integrating intelligent building management systems (BMS), IoT
+                  solutions, and automation for optimized energy consumption,
+                  enhanced security, and superior occupant comfort.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- <section class="op-section" id="projects">
+        <div class="op-container">
+          <header class="op-section-header" id="projectsHeader">
+            <h2 class="op-main-title">Our Projects</h2>
+            <p class="op-section-tagline">
+              A Showcase of Our Capacity & Excellence in Execution.
+            </p>
+          </header>
+
+          <div class="op-project-grid" id="projectGrid">
+          
+          
+                <article class="op-project-item-preview" data-project-id="proj1">
+                    <span class="op-project-number">01</span>
+                    <div class="op-project-preview-text-content">
+                        <h3 class="op-project-preview-title">Modern Urban Residence</h3>
+                        <p class="op-project-category">Residential</p>
+                    </div>
+                    <a href="#" class="op-view-project-cta" aria-label="View project Modern Urban Residence">
+                        View Project 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                    </a>
+                </article>
+               
+          </div>
+        </div>
+      </section>
+
+      <div class="op-project-detail-overlay" id="projectDetailOverlay">
+        <button
+          class="op-overlay-close-button"
+          id="overlayCloseButton"
+          aria-label="Close project details"
+        >
+          ×
+        </button>
+        <div class="op-overlay-content-wrapper">
+          <div class="op-overlay-image-panel">
+            <div class="op-overlay-image-slider" id="overlayImageSlider"></div>
+            <div class="op-slider-nav">
+              <button id="sliderPrevBtn" aria-label="Previous image">←</button>
+              <button id="sliderNextBtn" aria-label="Next image">→</button>
+            </div>
+          </div>
+          <div class="op-overlay-details-panel" id="overlayDetailsPanel">
+            <h3 class="op-overlay-project-title"></h3>
+            <p class="op-overlay-project-category"></p>
+            <div class="op-overlay-project-description"></div>
+            <div class="op-overlay-project-meta"></div>
+          </div>
+        </div>
+      </div> -->
+      <section class="ocg-section" id="projects">
+        <div class="ocg-container">
+          <header class="ocg-section-header" id="clientsGridHeader">
+            <h2 class="ocg-main-title">Our Clients & Projects</h2>
+            <p class="ocg-subtitle">
+              Demonstrating our unwavering commitment to excellence and our
+              capacity to deliver landmark projects for a diverse clientele.
+            </p>
+          </header>
+
+          <div class="ocg-client-grid" id="clientGrid">
+            <!-- Client cards will be populated by JavaScript -->
+          </div>
+
+          <!-- Footer brand element (from previous project section, can be reused or adapted) -->
+          <div
+            class="op-section-footer-brand"
+            id="clientSectionFooter"
+            style="
+              margin-top: 70px;
+              text-align: center;
+              font-size: 0.8rem;
+              color: var(--ocg-color-text-secondary);
+              opacity: 0;
+              transform: translateY(20px);
+            "
+          ></div>
+        </div>
+      </section>
+
+      <section class="tst-section">
+        <div class="tst-container">
+          <header class="tst-section-header" id="testimonialsHeader">
+            <h2 class="tst-main-title">What Our Clients Say</h2>
+          </header>
+
+          <div class="tst-graphic-accent" id="testimonialGraphicAccent">“</div>
+
+          <div class="tst-slider-wrapper">
+            <div class="tst-testimonial-content" id="testimonialContent">
+              <!-- Testimonial items will be injected here by JS -->
+            </div>
+          </div>
+
+          <div class="tst-slider-navigation" id="testimonialNav">
+            <button
+              class="tst-nav-button"
+              id="tstPrevBtn"
+              aria-label="Previous testimonial"
+            >
+              ←
+            </button>
+            <span
+              class="tst-slide-counter"
+              id="tstSlideCounter"
+              style="display: none"
+            ></span>
+            <!-- Optional counter -->
+            <button
+              class="tst-nav-button"
+              id="tstNextBtn"
+              aria-label="Next testimonial"
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="cfs-section" id="contact">
+        <div class="cfs-container scroll-reveal">
+          <!-- Added scroll-reveal from your JS -->
+          <header class="cfs-section-header">
+            <h2 class="cfs-main-title">Let's Connect</h2>
+            <p class="cfs-subtitle">
+              Have a project in mind, a question, or just want to discuss
+              possibilities? Reach out – we're ready to listen and collaborate.
+            </p>
+          </header>
+
+          <form class="cfs-contact-form" id="contactForm" novalidate>
+            <div class="cfs-form-group">
+              <label for="contactName">Full Name</label>
+              <input
+                type="text"
+                id="contactName"
+                name="contactName"
+                class="cfs-form-input"
+                placeholder="Your full name"
+                required
+              />
+              <span class="form-error-message-unique"></span>
+            </div>
+
+            <div class="cfs-form-group">
+              <label for="contactEmail">Email Address</label>
+              <input
+                type="email"
+                id="contactEmail"
+                name="contactEmail"
+                class="cfs-form-input"
+                placeholder="your.email@example.com"
+                required
+              />
+              <span class="form-error-message-unique"></span>
+            </div>
+
+            <div class="cfs-form-group select-wrapper-unique">
+              <!-- select-wrapper-unique class might be used by your JS for error placement -->
+              <label for="contactService">Service of Interest</label>
+              <select
+                id="contactService"
+                name="contactService"
+                class="cfs-form-select"
+                required
+              >
+                <option value="" disabled selected>Select a service...</option>
+                <option value="Residential Construction">
+                  Residential Construction
+                </option>
+                <option value="Commercial Construction">
+                  Commercial Construction
+                </option>
+                <option value="Renovation & Remodelling">
+                  Renovation & Remodelling
+                </option>
+                <option value="Project Management">Project Management</option>
+                <option value="Infrastructure Development">
+                  Infrastructure Development
+                </option>
+                <option value="Architectural Design">
+                  Architectural Design
+                </option>
+                <option value="Building Materials">
+                  Sales of Building Materials
+                </option>
+                <option value="General Inquiry">General Inquiry</option>
+              </select>
+              <span class="form-error-message-unique"></span>
+            </div>
+
+            <div class="cfs-form-group">
+              <label for="contactMessage">Message / Project Brief</label>
+              <textarea
+                id="contactMessage"
+                name="contactMessage"
+                class="cfs-form-textarea"
+                rows="5"
+                placeholder="Tell us about your project, requirements, or any questions you have..."
+                required
+              ></textarea>
+              <span class="form-error-message-unique"></span>
+            </div>
+
+            <button type="submit" class="cfs-submit-btn">Send Inquiry</button>
+
+            <div
+              id="formStatusMessage"
+              class="form-status-message-unique"
+            ></div>
+          </form>
+        </div>
+      </section>
+      <section class="sfq-section">
+        <div class="sfq-container">
+          <h2 class="sfq-section-title" id="faqMainTitle">
+            Frequently Asked Questions
+          </h2>
+
+          <div class="sfq-list">
+            <div class="sfq-item">
+              <button
+                class="sfq-question-button"
+                aria-expanded="false"
+                aria-controls="sfq-answer-1"
+              >
+                <span class="sfq-question-text"
+                  >What types of construction projects does STONNY specialize
+                  in?</span
+                >
+                <span class="sfq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="sfq-answer-content" id="sfq-answer-1" role="region">
+                <div class="sfq-answer-text">
+                  <p>
+                    STONNY CONSTRUCTION LTD undertakes a diverse range of
+                    projects, including residential (custom homes, villas,
+                    apartment complexes), commercial (offices, retail, malls),
+                    industrial constructions, infrastructure development (roads,
+                    bridges), and comprehensive renovation and remodelling
+                    services.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="sfq-item">
+              <button
+                class="sfq-question-button"
+                aria-expanded="false"
+                aria-controls="sfq-answer-2"
+              >
+                <span class="sfq-question-text"
+                  >How is project pricing determined?</span
+                >
+                <span class="sfq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="sfq-answer-content" id="sfq-answer-2" role="region">
+                <div class="sfq-answer-text">
+                  <p>
+                    Project pricing is tailored to the specific scope, scale,
+                    complexity, materials chosen, and duration of each project.
+                    We provide a detailed, transparent cost breakdown and
+                    proposal after an initial consultation and understanding of
+                    your requirements. Our aim is to deliver cost-effective
+                    solutions without compromising on quality.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="sfq-item">
+              <button
+                class="sfq-question-button"
+                aria-expanded="false"
+                aria-controls="sfq-answer-3"
+              >
+                <span class="sfq-question-text"
+                  >What is the typical project timeline?</span
+                >
+                <span class="sfq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="sfq-answer-content" id="sfq-answer-3" role="region">
+                <div class="sfq-answer-text">
+                  <p>
+                    Timelines vary greatly depending on the project's nature.
+                    Smaller renovations might take a few weeks to months, while
+                    large-scale new constructions or infrastructure projects can
+                    span several months to years. We establish a clear project
+                    schedule during the planning phase and maintain open
+                    communication regarding progress.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="sfq-item">
+              <button
+                class="sfq-question-button"
+                aria-expanded="false"
+                aria-controls="sfq-answer-4"
+              >
+                <span class="sfq-question-text"
+                  >How does STONNY ensure quality and safety on site?</span
+                >
+                <span class="sfq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="sfq-answer-content" id="sfq-answer-4" role="region">
+                <div class="sfq-answer-text">
+                  <p>
+                    Quality and safety are paramount. We adhere to stringent
+                    industry standards, employ experienced professionals, use
+                    high-quality materials, and implement rigorous site
+                    supervision and quality control processes throughout every
+                    phase of construction. Regular safety briefings and
+                    adherence to safety protocols are mandatory on all our
+                    sites.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="sfq-item">
+              <button
+                class="sfq-question-button"
+                aria-expanded="false"
+                aria-controls="sfq-answer-5"
+              >
+                <span class="sfq-question-text"
+                  >Do you offer architectural design services?</span
+                >
+                <span class="sfq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="sfq-answer-content" id="sfq-answer-5" role="region">
+                <div class="sfq-answer-text">
+                  <p>
+                    Yes, STONNY CONSTRUCTION LTD provides comprehensive
+                    architectural design services. We combine innovation with
+                    superior construction knowledge and reliable building
+                    materials to bring your visions to life, focusing on
+                    creative, functional designs tailored to your specific needs
+                    while emphasizing aesthetics, sustainability, and
+                    functionality.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="gqcta-section" id="getQuoteCtaSection">
+        <div class="gqcta-container">
+          <h2 class="gqcta-headline">Ready to Build Your Landmark?</h2>
+          <p class="gqcta-subheadline">
+            Let's discuss your project requirements and provide a tailored quote
+            to bring your vision to life with STONNY's expertise.
+          </p>
+          <a href="quote.html" class="gqcta-button">Get Your Quote</a>
+        </div>
+      </section>
+      <footer class="sft-footer-section" id="siteFooter">
+        <div class="sft-footer-container">
+          <div class="sft-footer-column">
+            <h4>Physical Address</h4>
+            <p>STONNY CONSTRUCTION LTD</p>
+            <p>COMPANY. DAPE, ABUJA.</p>
+          </div>
+
+          <div class="sft-footer-column">
+            <h4>Mobile No</h4>
+            <ul class="sft-phone-list">
+              <li><a href="tel:+2347040265243">+2347040265243</a></li>
+              <li><a href="tel:+2348035587445">+2348035587445</a></li>
+              <li><a href="tel:+2348085589117">+2348085589117</a></li>
+            </ul>
+          </div>
+
+          <div class="sft-footer-column">
+            <h4>Social Media</h4>
+            <ul>
+              <li>
+                <a
+                  href="https://facebook.com/stonnyconstructionltd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Facebook: stonnyconstructionltd</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com/stonnyconstructionltd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Twitter: @stonnyconstructionltd</a
+                >
+              </li>
+              <!-- Assuming the website is the current one, so not linking it. If it's different: -->
+              <!-- <li><a href="https://www.stonnyconstructionltd.wordpress.com" target="_blank" rel="noopener noreferrer">www.stonnyconstructionltd @wordpress.com</a></li> -->
+              <li>
+                <a href="mailto:info@stonnyconstructionltd.com"
+                  >info@stonnyconstructionltd.com</a
+                >
+              </li>
+              <!-- Added an example email -->
+            </ul>
+          </div>
+        </div>
+
+        <div class="sft-footer-bottom">
+          <span class="sft-company-name">STONNY CONSTRUCTION LTD</span>
+          <span class="sft-company-profile-tag">COMPANY PROFILE</span>
+          <p class="sft-rc-number">RC.NO: 7227515</p>
+          <p
+            style="
+              font-size: 0.75rem;
+              color: var(--sft-color-text-secondary);
+              margin-top: 20px;
+            "
+          >
+            © <span id="currentYear"></span> STONNY CONSTRUCTION LTD. All Rights
+            Reserved.
+          </p>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navToggle = document.getElementById("navToggle");
+        const mainNav = document.getElementById("mainNav");
+        const siteHeader = document.getElementById("siteHeader");
+        const navLinks = document.querySelectorAll(".scroll-link");
+        const navHeight = siteHeader ? siteHeader.offsetHeight : 75;
+
+        if (navToggle && mainNav) {
+          navToggle.addEventListener("click", () => {
+            const isOpen = mainNav.classList.toggle("is-open");
+            navToggle.classList.toggle("is-active");
+            navToggle.setAttribute("aria-expanded", isOpen);
+            document.body.classList.toggle("no-scroll-stonny", isOpen);
+          });
+        }
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            if (mainNav.classList.contains("is-open")) {
+              mainNav.classList.remove("is-open");
+              navToggle.classList.remove("is-active");
+              navToggle.setAttribute("aria-expanded", "false");
+              document.body.classList.remove("no-scroll-stonny");
+            }
+            const targetId = this.getAttribute("href");
+            if (targetId && targetId.startsWith("#") && targetId.length > 1) {
+              e.preventDefault();
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                const elementPosition =
+                  targetElement.getBoundingClientRect().top +
+                  window.pageYOffset;
+                const offsetPosition = elementPosition - navHeight;
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+              }
+            }
+          });
+        });
+
+        const sections = document.querySelectorAll("section[id]");
+        function handleScrollNav() {
+          if (window.scrollY > 30) {
+            // Threshold for scrolled nav
+            siteHeader.classList.add("scrolled");
+          } else {
+            siteHeader.classList.remove("scrolled");
+          }
+
+          let currentSectionId = "hero";
+          const scrollThreshold =
+            window.pageYOffset + navHeight + window.innerHeight * 0.4;
+
+          sections.forEach((section) => {
+            if (section.offsetTop <= scrollThreshold) {
+              currentSectionId = section.getAttribute("id");
+            }
+          });
+          if (
+            window.innerHeight + window.pageYOffset >=
+              document.body.offsetHeight - 50 &&
+            sections.length > 0
+          ) {
+            currentSectionId = sections[sections.length - 1].getAttribute("id");
+          }
+
+          navLinks.forEach((link) => {
+            link.classList.remove("stonny-active-link");
+            if (link.getAttribute("href") === `#${currentSectionId}`) {
+              link.classList.add("stonny-active-link");
+            }
+          });
+        }
+        window.addEventListener("scroll", handleScrollNav);
+        handleScrollNav();
+
+        const watchVideoButton = document.getElementById("watchVideoButton");
+        if (watchVideoButton) {
+          watchVideoButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            alert("Video modal/player would open here!");
+          });
+        }
+      });
+    </script>
+    <script src="about.js"></script>
+    <script src="services.js"></script>
+    <!-- <script src="project.js"></script> -->
+    <script src="client.js"></script>
+    <script src="testimonials.js"></script>
+    <script src="contact.js"></script>
+    <script src="footer.js"></script>
+    <script src="faq.js"></script>
+    <script src="video.js"></script>
+    <script src="tin.js"></script>
+    <script src="cta.js"></script>
+  </body>
+</html>

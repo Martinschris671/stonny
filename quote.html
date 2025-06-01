@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STONNY - Request a Quote</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+      :root {
+        --qpg-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        --qpg-color-white: #ffffff;
+        --qpg-color-black: #000000;
+        --qpg-color-off-black: #111111;
+        --qpg-color-text-primary: var(--qpg-color-off-black);
+        --qpg-color-text-secondary: #555555;
+        --qpg-color-text-subtle: #888888;
+        --qpg-color-border: #dcdcdc;
+        --qpg-color-border-focus: var(--qpg-color-black);
+        --qpg-color-accent: var(
+          --qpg-color-black
+        ); /* For progress bar, active elements */
+        --qpg-color-error: #d32f2f;
+        --qpg-color-success: #006422;
+
+        --qpg-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        --qpg-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --qpg-animation-step: cubic-bezier(
+          0.35,
+          0,
+          0.25,
+          1
+        ); /* For step transitions */
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: var(--qpg-font-primary);
+        background-color: var(--qpg-color-white);
+        color: var(--qpg-color-text-primary);
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      .qpg-main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        padding: 60px 20px;
+        width: 100%;
+      }
+
+      .qpg-form-wrapper {
+        max-width: 700px;
+        width: 100%;
+        background-color: var(--qpg-color-white);
+        /* box-shadow: 0 10px 40px rgba(0,0,0,0.05); */ /* Optional subtle shadow */
+        /* border: 1px solid var(--qpg-color-border); */ /* Optional subtle border */
+        border-radius: 8px; /* Optional */
+        padding: 40px;
+      }
+
+      .qpg-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .qpg-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--qpg-color-off-black);
+      }
+      .qpg-subtitle {
+        font-size: clamp(0.9rem, 2vw, 1.05rem);
+        color: var(--qpg-color-text-secondary);
+        line-height: 1.6;
+      }
+
+      /* Progress Bar */
+      .qpg-progress-bar-container {
+        margin-bottom: 35px;
+        width: 100%;
+      }
+      .qpg-progress-bar {
+        height: 4px;
+        background-color: var(--qpg-color-border);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .qpg-progress-bar-fill {
+        height: 100%;
+        width: 0%; /* Will be updated by JS */
+        background-color: var(--qpg-color-accent);
+        border-radius: 2px;
+        transition: width 0.5s var(--qpg-animation-smooth);
+      }
+
+      .qpg-form-step {
+        display: none; /* Hidden by default, JS shows active */
+        opacity: 0;
+        animation: qpg-step-fade-in 0.6s var(--qpg-animation-step) forwards;
+      }
+      .qpg-form-step.is-active {
+        display: block;
+      }
+      @keyframes qpg-step-fade-in {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      /* For exiting animation (optional) */
+      .qpg-form-step.is-exiting {
+        animation: qpg-step-fade-out 0.4s var(--qpg-animation-step) forwards;
+        position: absolute; /* Keep it in flow during exit */
+        width: calc(100% - 80px); /* Match padding of wrapper */
+      }
+      @keyframes qpg-step-fade-out {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+      }
+
+      .qpg-form-group {
+        position: relative;
+        margin-bottom: 28px;
+      }
+      .qpg-form-group label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--qpg-color-text-secondary);
+        margin-bottom: 8px;
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+      }
+      .qpg-form-input,
+      .qpg-form-textarea,
+      .qpg-form-select {
+        font-family: var(--qpg-font-primary);
+        font-size: 0.95rem;
+        padding: 12px 0px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1.5px solid var(--qpg-color-border);
+        border-radius: 0;
+        color: var(--qpg-color-text-primary);
+        outline: none;
+        width: 100%;
+        transition: border-color 0.3s var(--qpg-animation-smooth);
+      }
+      .qpg-form-input::placeholder,
+      .qpg-form-textarea::placeholder {
+        color: var(--qpg-color-text-subtle);
+        opacity: 0.8;
+      }
+      .qpg-form-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333333' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0px center;
+        background-size: 14px;
+        padding-right: 25px;
+      }
+      .qpg-form-select:required:invalid {
+        color: var(--qpg-color-text-subtle);
+      }
+      .qpg-form-input:focus,
+      .qpg-form-textarea:focus,
+      .qpg-form-select:focus {
+        border-color: var(--qpg-color-border-focus);
+      }
+      .qpg-form-textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      /* Radio buttons for project type (Step 1) */
+      .qpg-radio-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+      }
+      .qpg-radio-label {
+        display: block;
+        padding: 15px;
+        border: 1.5px solid var(--qpg-color-border);
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+      }
+      .qpg-radio-label input[type="radio"] {
+        display: none; /* Hide actual radio */
+      }
+      .qpg-radio-label:hover {
+        border-color: var(--qpg-color-text-secondary);
+      }
+      .qpg-radio-label input[type="radio"]:checked + span {
+        /* Style the text span */
+        /* This requires JS to add an 'is-checked' class to the label or to style the span directly */
+      }
+      .qpg-radio-label.is-checked {
+        /* Class added by JS */
+        border-color: var(--qpg-color-accent);
+        background-color: var(--qpg-color-off-black);
+        color: var(--qpg-color-white);
+      }
+
+      .form-error-message-unique {
+        /* From your JS */
+        font-size: 0.75rem;
+        color: var(--qpg-color-error);
+        margin-top: 6px;
+        display: none;
+        font-weight: 500;
+      }
+      .form-error-message-unique.visible {
+        display: block;
+      }
+      .qpg-form-input.invalid,
+      .qpg-form-textarea.invalid,
+      .qpg-form-select.invalid,
+      .qpg-radio-label.invalid {
+        border-color: var(--qpg-color-error) !important;
+      }
+
+      .qpg-navigation-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+        border-top: 1px solid var(--qpg-color-border);
+        padding-top: 25px;
+      }
+      .qpg-nav-btn {
+        font-family: var(--qpg-font-primary);
+        font-size: 0.9rem;
+        font-weight: 600;
+        padding: 12px 28px;
+        background-color: var(--qpg-color-black);
+        color: var(--qpg-color-white);
+        border: 1.5px solid var(--qpg-color-black);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .qpg-nav-btn.qpg-prev-btn {
+        background-color: transparent;
+        color: var(--qpg-color-text-primary);
+        border-color: var(--qpg-color-border);
+      }
+      .qpg-nav-btn:hover:not(:disabled) {
+        background-color: var(--qpg-color-text-secondary);
+        border-color: var(--qpg-color-text-secondary);
+        color: var(--qpg-color-white);
+      }
+      .qpg-prev-btn:hover:not(:disabled) {
+        background-color: #f0f0f0;
+        border-color: #ccc;
+        color: var(--qpg-color-text-primary);
+      }
+      .qpg-nav-btn:active:not(:disabled) {
+        transform: scale(0.97);
+      }
+      .qpg-nav-btn:disabled {
+        background-color: #e0e0e0;
+        border-color: #e0e0e0;
+        color: #9e9e9e;
+        cursor: not-allowed;
+      }
+
+      /* Summary Step */
+      .qpg-summary-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px 0;
+      }
+      .qpg-summary-item {
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--qpg-color-border);
+      }
+      .qpg-summary-item:last-child {
+        border-bottom: none;
+      }
+      .qpg-summary-item strong {
+        color: var(--qpg-color-text-primary);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 3px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+      .qpg-summary-item span {
+        color: var(--qpg-color-text-secondary);
+        font-size: 0.9rem;
+      }
+
+      .form-status-message-unique {
+        /* From your JS */
+        margin-top: 25px;
+        padding: 14px 18px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        text-align: center;
+        display: none;
+        font-weight: 500;
+        line-height: 1.5;
+      }
+      .form-status-message-unique.visible {
+        display: block;
+      }
+      .form-status-message-unique.success {
+        background-color: #e8f5e9;
+        color: var(--qpg-color-success);
+        border: 1px solid #a5d6a7;
+      }
+      .form-status-message-unique.error {
+        background-color: #ffebee;
+        color: var(--qpg-color-error);
+        border: 1px solid #ef9a9a;
+      }
+
+      @media (max-width: 768px) {
+        .qpg-main-container {
+          padding: 0px 15px;
+        }
+        .qpg-form-wrapper {
+          padding: 30px;
+        }
+        .qpg-title {
+          font-size: clamp(1.6rem, 5vw, 2rem);
+        }
+        .qpg-subtitle {
+          font-size: clamp(0.85rem, 2.5vw, 1rem);
+        }
+        .qpg-radio-group {
+          grid-template-columns: 1fr;
+        } /* Stack radios */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="qpg-main-container">
+      <div class="qpg-form-wrapper scroll-reveal">
+        <!-- Added scroll-reveal from your JS -->
+        <header class="qpg-header">
+          <h1 class="qpg-title">Request a Project Quote</h1>
+          <p class="qpg-subtitle">
+            Let's build something extraordinary together. Please provide some
+            details about your project.
+          </p>
+        </header>
+
+        <div class="qpg-progress-bar-container">
+          <div class="qpg-progress-bar">
+            <div class="qpg-progress-bar-fill" id="progressBarFill"></div>
+          </div>
+        </div>
+
+        <form id="quoteForm" novalidate>
+          <!-- Step 1: Project Type -->
+          <div class="qpg-form-step is-active" data-step="1">
+            <div class="qpg-form-group">
+              <label>What type of project are you planning?</label>
+              <div class="qpg-radio-group" id="projectTypeGroup">
+                <label class="qpg-radio-label">
+                  <input
+                    type="radio"
+                    name="projectType"
+                    value="Residential Construction"
+                    required
+                  />
+                  <span>Residential</span>
+                </label>
+                <label class="qpg-radio-label">
+                  <input
+                    type="radio"
+                    name="projectType"
+                    value="Commercial Construction"
+                  />
+                  <span>Commercial</span>
+                </label>
+                <label class="qpg-radio-label">
+                  <input
+                    type="radio"
+                    name="projectType"
+                    value="Renovation & Remodelling"
+                  />
+                  <span>Renovation</span>
+                </label>
+                <label class="qpg-radio-label">
+                  <input
+                    type="radio"
+                    name="projectType"
+                    value="Infrastructure Development"
+                  />
+                  <span>Infrastructure</span>
+                </label>
+                <label class="qpg-radio-label">
+                  <input
+                    type="radio"
+                    name="projectType"
+                    value="Architectural Design Only"
+                  />
+                  <span>Design Only</span>
+                </label>
+                <label class="qpg-radio-label">
+                  <input type="radio" name="projectType" value="Other" />
+                  <span>Other</span>
+                </label>
+              </div>
+              <span class="form-error-message-unique"></span>
+              <!-- For radio group validation -->
+            </div>
+          </div>
+
+          <!-- Step 2: Project Details -->
+          <div class="qpg-form-step" data-step="2">
+            <div class="qpg-form-group">
+              <label for="projectLocation">Project Location (City/Area)</label>
+              <input
+                type="text"
+                id="projectLocation"
+                name="projectLocation"
+                class="qpg-form-input"
+                placeholder="e.g., Lagos, Nigeria"
+                required
+              />
+              <span class="form-error-message-unique"></span>
+            </div>
+            <div class="qpg-form-group">
+              <label for="projectScope"
+                >Brief Project Scope / Key Requirements</label
+              >
+              <textarea
+                id="projectScope"
+                name="projectScope"
+                class="qpg-form-textarea"
+                rows="5"
+                placeholder="Describe your project, estimated size, key features, or specific needs..."
+                required
+              ></textarea>
+              <span class="form-error-message-unique"></span>
+            </div>
+            <div class="qpg-form-group">
+              <label for="estimatedBudget">Estimated Budget (Optional)</label>
+              <select
+                id="estimatedBudget"
+                name="estimatedBudget"
+                class="qpg-form-select"
+              >
+                <option value="">Select budget range...</option>
+                <option value="<50M NGN">< ₦50 Million</option>
+                <option value="50M-150M NGN">₦50M - ₦150 Million</option>
+                <option value="150M-500M NGN">₦150M - ₦500 Million</option>
+                <option value=">500M NGN">> ₦500 Million</option>
+                <option value="Undisclosed">Prefer not to say</option>
+              </select>
+              <span class="form-error-message-unique"></span>
+            </div>
+          </div>
+
+          <!-- Step 3: Contact Information -->
+          <div class="qpg-form-step" data-step="3">
+            <div class="qpg-form-group">
+              <label for="contactName">Full Name</label>
+              <!-- ID matches your JS -->
+              <input
+                type="text"
+                id="contactName"
+                name="contactName"
+                class="qpg-form-input"
+                placeholder="Your full name"
+                required
+              />
+              <span class="form-error-message-unique"></span>
+            </div>
+            <div class="qpg-form-group">
+              <label for="contactEmail">Email Address</label>
+              <!-- ID matches your JS -->
+              <input
+                type="email"
+                id="contactEmail"
+                name="contactEmail"
+                class="qpg-form-input"
+                placeholder="your.email@example.com"
+                required
+              />
+              <span class="form-error-message-unique"></span>
+            </div>
+            <div class="qpg-form-group">
+              <label for="contactPhone">Phone Number (Optional)</label>
+              <input
+                type="text"
+                id="contactPhone"
+                name="contactPhone"
+                class="qpg-form-input"
+                placeholder="+234 000 000 0000"
+              />
+              <span class="form-error-message-unique"></span>
+            </div>
+          </div>
+
+          <!-- Step 4: Review & Submit -->
+          <div class="qpg-form-step" data-step="4">
+            <h3
+              style="font-size: 1.2rem; margin-bottom: 20px; font-weight: 600"
+            >
+              Review Your Quote Request
+            </h3>
+            <ul class="qpg-summary-list" id="quoteSummaryList">
+              <!-- Summary items will be populated by JS -->
+            </ul>
+            <p
+              style="
+                font-size: 0.85rem;
+                color: var(--qpg-color-text-subtle);
+                line-height: 1.5;
+              "
+            >
+              Please review the details above. Clicking "Submit" will prepare an
+              email for you to send to us using your default email application.
+            </p>
+          </div>
+
+          <div class="qpg-navigation-buttons">
+            <button
+              type="button"
+              class="qpg-nav-btn qpg-prev-btn"
+              id="prevBtn"
+              disabled
+            >
+              Previous
+            </button>
+            <button type="button" class="qpg-nav-btn qpg-next-btn" id="nextBtn">
+              Next
+            </button>
+            <button
+              type="submit"
+              class="qpg-nav-btn qpg-submit-btn"
+              id="submitBtn"
+              style="display: none"
+            >
+              Submit
+            </button>
+          </div>
+
+          <div
+            id="formStatusMessage"
+            class="form-status-message-unique"
+            style="margin-bottom: 0"
+          ></div>
+          <!-- From your JS -->
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // --- PASTE YOUR PROVIDED JAVASCRIPT (MAILTO LOGIC) HERE ---
+      // --- AND ADD THE NEW MULTI-STEP LOGIC BELOW IT ---
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Your Existing Mailto Form Logic ---
+        const quoteForm = document.getElementById("quoteForm"); // Renamed from contactForm
+        const formStatusMessage = document.getElementById("formStatusMessage");
+
+        const MY_EMAIL_ADDRESS = "info@stonnyconstructionltd.com"; // !!! REPLACE THIS !!!
+        const YOUR_NAME_FOR_EMAIL = "STONNY Construction"; // !!! REPLACE THIS !!!
+
+        function validateField(field, group) {
+          const errorElement = group.querySelector(
+            ".form-error-message-unique"
+          );
+          let isValid = true;
+          if (errorElement) {
+            errorElement.textContent = "";
+            errorElement.classList.remove("visible");
+          }
+          field.classList.remove("invalid");
+          if (field.closest(".qpg-radio-label"))
+            field.closest(".qpg-radio-label").classList.remove("invalid");
+
+          if (field.type === "radio" && field.hasAttribute("required")) {
+            const radioGroup = document.getElementsByName(field.name);
+            const isChecked = Array.from(radioGroup).some(
+              (radio) => radio.checked
+            );
+            if (!isChecked) {
+              if (errorElement)
+                errorElement.textContent = "Please select an option.";
+              isValid = false;
+            }
+          } else if (
+            field.hasAttribute("required") &&
+            field.value.trim() === ""
+          ) {
+            if (errorElement)
+              errorElement.textContent = "This field is required.";
+            isValid = false;
+          } else if (field.type === "email" && field.value.trim() !== "") {
+            // only validate if not empty
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(field.value.trim())) {
+              if (errorElement)
+                errorElement.textContent = "Please enter a valid email.";
+              isValid = false;
+            }
+          } else if (
+            field.tagName === "SELECT" &&
+            field.hasAttribute("required") &&
+            field.value === ""
+          ) {
+            if (errorElement)
+              errorElement.textContent = "Please select an option.";
+            isValid = false;
+          }
+
+          if (!isValid) {
+            if (errorElement) errorElement.classList.add("visible");
+            if (field.type === "radio") {
+              // For radio, mark the group container (parent label)
+              const radioLabels = group.querySelectorAll(".qpg-radio-label");
+              radioLabels.forEach((lbl) => lbl.classList.add("invalid"));
+            } else {
+              field.classList.add("invalid");
+            }
+          }
+          return isValid;
+        }
+
+        // --- New Multi-Step Form Logic ---
+        const steps = Array.from(quoteForm.querySelectorAll(".qpg-form-step"));
+        const nextBtn = document.getElementById("nextBtn");
+        const prevBtn = document.getElementById("prevBtn");
+        const submitBtn = document.getElementById("submitBtn");
+        const progressBarFill = document.getElementById("progressBarFill");
+        const quoteSummaryList = document.getElementById("quoteSummaryList");
+        const projectTypeGroup = document.getElementById("projectTypeGroup");
+
+        let currentStep = 0;
+
+        function updateProgressBar() {
+          const progressPercentage = ((currentStep + 1) / steps.length) * 100;
+          progressBarFill.style.width = `${progressPercentage}%`;
+        }
+
+        function showStep(stepIndex) {
+          steps.forEach((step, index) => {
+            if (index === stepIndex) {
+              step.classList.add("is-active");
+              step.classList.remove("is-exiting");
+            } else if (step.classList.contains("is-active")) {
+              step.classList.add("is-exiting");
+              step.addEventListener(
+                "animationend",
+                () => {
+                  step.classList.remove("is-active", "is-exiting");
+                },
+                { once: true }
+              );
+            } else {
+              step.classList.remove("is-active", "is-exiting");
+            }
+          });
+
+          prevBtn.disabled = stepIndex === 0;
+          nextBtn.style.display =
+            stepIndex === steps.length - 1 ? "none" : "inline-block";
+          submitBtn.style.display =
+            stepIndex === steps.length - 1 ? "inline-block" : "none";
+
+          if (stepIndex === steps.length - 1) {
+            // If it's the summary step
+            populateSummary();
+          }
+          updateProgressBar();
+        }
+
+        function validateCurrentStep() {
+          let isStepValid = true;
+          const currentStepFields = steps[currentStep].querySelectorAll(
+            "input[required], select[required], textarea[required]"
+          );
+          currentStepFields.forEach((field) => {
+            // For radio buttons, we need to find the group for validation message
+            const group = field.closest(".qpg-form-group");
+            if (!validateField(field, group)) {
+              isStepValid = false;
+            }
+          });
+          return isStepValid;
+        }
+
+        nextBtn.addEventListener("click", () => {
+          if (validateCurrentStep()) {
+            if (currentStep < steps.length - 1) {
+              currentStep++;
+              showStep(currentStep);
+            }
+          } else {
+            formStatusMessage.textContent =
+              "Please complete all required fields in this step.";
+            formStatusMessage.className =
+              "form-status-message-unique error visible";
+            setTimeout(() => {
+              formStatusMessage.className = "form-status-message-unique";
+            }, 3000);
+          }
+        });
+
+        prevBtn.addEventListener("click", () => {
+          if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+          }
+        });
+
+        // Handle custom radio button styling
+        if (projectTypeGroup) {
+          const radioLabels =
+            projectTypeGroup.querySelectorAll(".qpg-radio-label");
+          radioLabels.forEach((label) => {
+            label.addEventListener("click", () => {
+              radioLabels.forEach((lbl) =>
+                lbl.classList.remove("is-checked", "invalid")
+              ); // remove invalid from all
+              label.classList.add("is-checked");
+              // Manually trigger validation for the group after selection
+              const radioInput = label.querySelector('input[type="radio"]');
+              if (radioInput) validateField(radioInput, projectTypeGroup);
+            });
+          });
+        }
+
+        function populateSummary() {
+          quoteSummaryList.innerHTML = ""; // Clear previous summary
+          const formData = new FormData(quoteForm);
+          const fieldLabels = {
+            projectType: "Project Type",
+            projectLocation: "Project Location",
+            projectScope: "Project Scope",
+            estimatedBudget: "Estimated Budget",
+            contactName: "Full Name",
+            contactEmail: "Email Address",
+            contactPhone: "Phone Number",
+          };
+
+          for (let [name, value] of formData.entries()) {
+            if (value && fieldLabels[name]) {
+              // Only show filled fields with labels
+              const listItem = document.createElement("li");
+              listItem.classList.add("qpg-summary-item");
+              listItem.innerHTML = `<strong>${
+                fieldLabels[name]
+              }:</strong> <span>${value.replace(/\n/g, "<br>")}</span>`;
+              quoteSummaryList.appendChild(listItem);
+            }
+          }
+        }
+
+        if (quoteForm) {
+          // Attach blur/input listeners to ALL potentially required fields across all steps
+          const allRequiredFields = quoteForm.querySelectorAll(
+            "input[required], select[required], textarea[required]"
+          );
+          allRequiredFields.forEach((field) => {
+            const group = field.closest(".qpg-form-group");
+            field.addEventListener("blur", () => validateField(field, group));
+            field.addEventListener("input", () => {
+              if (
+                field.classList.contains("invalid") ||
+                (field.type === "radio" &&
+                  group.querySelector(".qpg-radio-label.invalid"))
+              ) {
+                validateField(field, group);
+              }
+            });
+          });
+
+          quoteForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // This will be for the mailto link
+            let isFormValid = true;
+            // Validate all fields on final submit (though step validation should catch most)
+            allRequiredFields.forEach((field) => {
+              const group = field.closest(".qpg-form-group");
+              if (!validateField(field, group)) {
+                isFormValid = false;
+              }
+            });
+
+            if (!isFormValid) {
+              formStatusMessage.textContent =
+                "Please ensure all required fields are correctly filled.";
+              formStatusMessage.className =
+                "form-status-message-unique error visible";
+              // Optionally, navigate back to the first step with an error
+              // currentStep = 0;
+              // showStep(currentStep);
+              return;
+            }
+
+            formStatusMessage.textContent = "Preparing your quote request...";
+            formStatusMessage.className = "form-status-message-unique visible";
+
+            const name = document.getElementById("contactName").value.trim();
+            const email = document.getElementById("contactEmail").value.trim();
+            const projectType = quoteForm.querySelector(
+              'input[name="projectType"]:checked'
+            )
+              ? quoteForm.querySelector('input[name="projectType"]:checked')
+                  .value
+              : "Not specified";
+            const location = document
+              .getElementById("projectLocation")
+              .value.trim();
+            const scope = document.getElementById("projectScope").value.trim();
+            const budget = document.getElementById("estimatedBudget").value;
+            const phone = document.getElementById("contactPhone").value.trim();
+
+            const subject = `Project Quote Request: ${projectType} - From ${name}`;
+            let body = `Hello ${YOUR_NAME_FOR_EMAIL},\n\nI am requesting a project quote via the STONNY Construction website.\n\n--- Project Details ---`;
+            body += `\nProject Type: ${projectType}`;
+            body += `\nLocation: ${location}`;
+            body += `\nScope/Requirements:\n${scope}`;
+            if (budget) body += `\nEstimated Budget: ${budget}`;
+            body += `\n\n--- Contact Information ---`;
+            body += `\nName: ${name}`;
+            body += `\nEmail: ${email}`;
+            if (phone) body += `\nPhone: ${phone}`;
+            body += `\n\nI look forward to your response.\n\nBest regards,\n${name}\n`;
+
+            const mailtoLink =
+              `mailto:${MY_EMAIL_ADDRESS}` +
+              `?subject=${encodeURIComponent(subject)}` +
+              `&body=${encodeURIComponent(body)}`;
+            try {
+              window.location.href = mailtoLink;
+              formStatusMessage.textContent =
+                "Your email application should open. Please review your quote request and click send!";
+              formStatusMessage.className =
+                "form-status-message-unique success visible";
+              setTimeout(() => {
+                quoteForm.reset();
+                // Reset radio button visual state
+                projectTypeGroup
+                  .querySelectorAll(".qpg-radio-label")
+                  .forEach((lbl) =>
+                    lbl.classList.remove("is-checked", "invalid")
+                  );
+                // Reset other fields
+                allRequiredFields.forEach((field) => {
+                  field.classList.remove("invalid");
+                  const wrapper = field.closest(".qpg-form-group");
+                  const errorElement = wrapper
+                    ? wrapper.querySelector(".form-error-message-unique")
+                    : null;
+                  if (errorElement) errorElement.classList.remove("visible");
+                });
+                formStatusMessage.className = "form-status-message-unique";
+                currentStep = 0; // Reset to first step
+                showStep(currentStep);
+              }, 10000);
+            } catch (e) {
+              console.error("Error opening mailto link:", e);
+              formStatusMessage.textContent =
+                "Could not automatically open your email app. This can be due to browser settings. Please copy the details or email us directly.";
+              formStatusMessage.className =
+                "form-status-message-unique error visible";
+            }
+          });
+        }
+
+        // Initial Setup
+        showStep(currentStep);
+
+        // Scroll Reveal Logic (from your previous script, if you're using it for .qpg-form-wrapper)
+        const srElements = document.querySelectorAll(".scroll-reveal");
+        if (
+          typeof IntersectionObserver === "function" &&
+          srElements.length > 0
+        ) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.1 }
+          );
+          srElements.forEach((el) => observer.observe(el));
+        } else if (srElements.length > 0) {
+          srElements.forEach((el) => el.classList.add("is-visible")); // Fallback
+        }
+      });
+    </script>
+  </body>
+</html>

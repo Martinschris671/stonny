@@ -1,0 +1,158 @@
+:root {
+  --sft-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --sft-font-accent: "Roboto Mono", monospace; /* For RC No, adds a touch of technicality */
+  --sft-color-background: #0a0a0a; /* Very dark, almost black background */
+  --sft-color-text-primary: #eaeaea; /* Light grey for primary text on dark bg */
+  --sft-color-text-secondary: #a0a0a0; /* Softer grey for secondary details */
+  --sft-color-text-heading: #ffffff; /* White for headings */
+  --sft-color-link-hover: #ffffff;
+  --sft-color-border-subtle: #282828; /* Darker border for dark bg */
+
+  --sft-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --sft-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sft-footer-section {
+  background-color: var(--sft-color-background);
+  color: var(--sft-color-text-primary);
+  padding: 70px 40px 30px; /* Top, Hori, Bottom */
+  font-weight: 400; /* Default light weight for footer text */
+}
+
+.sft-footer-container {
+  max-width: 1150px; /* Slightly wider for more columns */
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  ); /* Responsive columns */
+  gap: 40px 30px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid var(--sft-color-border-subtle);
+}
+
+.sft-footer-column h4 {
+  /* For "Physical Address", "Mobile No", "Social Media" */
+  font-size: 0.9rem;
+  font-weight: 600; /* Bolder for these subheadings */
+  color: var(--sft-color-text-heading);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.sft-footer-column p,
+.sft-footer-column li {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--sft-color-text-secondary);
+  margin-bottom: 8px;
+}
+.sft-footer-column p:last-child,
+.sft-footer-column li:last-child {
+  margin-bottom: 0;
+}
+
+.sft-footer-column a {
+  color: var(--sft-color-text-secondary);
+  text-decoration: none;
+  transition: color 0.3s var(--sft-animation-smooth);
+  display: inline-block; /* Allows for subtle hover effects like slight move */
+}
+.sft-footer-column a:hover {
+  color: var(--sft-color-link-hover);
+  /* text-decoration: underline; */ /* Optional underline */
+}
+
+.sft-footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Specific styling for phone numbers */
+.sft-phone-list li {
+  font-weight: 500; /* Make phone numbers slightly more prominent */
+  letter-spacing: 0.5px;
+}
+
+.sft-footer-bottom {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.sft-company-name {
+  font-size: 1.1rem; /* Slightly larger company name */
+  font-weight: 700; /* Bold */
+  color: var(--sft-color-text-heading);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+.sft-company-profile-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--sft-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.sft-rc-number {
+  font-family: var(--sft-font-accent); /* Monospace for RC */
+  font-size: 0.75rem;
+  color: var(--sft-color-text-secondary);
+  display: block;
+}
+
+/* For entry animation of the whole footer if desired */
+.sft-footer-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--sft-animation-gentle) 0.2s,
+    transform 0.8s var(--sft-animation-gentle) 0.2s;
+}
+.sft-footer-section {
+  /* Initial state */
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .sft-footer-section {
+    padding: 60px 20px 30px;
+  }
+  .sft-footer-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 35px;
+    padding-bottom: 40px;
+  }
+  .sft-footer-column {
+    /* text-align: center; */ /* Optional: center column content on mobile */
+  }
+  .sft-footer-column h4 {
+    font-size: 0.85rem;
+  }
+  .sft-footer-column p,
+  .sft-footer-column li {
+    font-size: 0.8rem;
+  }
+  .sft-company-name {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .sft-footer-container {
+    grid-template-columns: 1fr; /* Single column */
+    text-align: center; /* Center everything in single column */
+  }
+  .sft-footer-column ul {
+    display: inline-block; /* Helps with centering list items */
+    text-align: left; /* Keep list items themselves left-aligned if preferred */
+  }
+}

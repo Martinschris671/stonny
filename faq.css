@@ -1,0 +1,169 @@
+:root {
+  --sfq-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --sfq-color-white: #ffffff;
+  --sfq-color-black: #000000;
+  --sfq-color-off-black: #111111; /* Main text */
+  --sfq-color-text-secondary: #333333; /* Answer text */
+  --sfq-color-border: #e0e0e0; /* Very subtle border */
+  --sfq-color-icon: var(--sfq-color-black);
+
+  --sfq-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --sfq-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sfq-section {
+  padding: 80px 40px 100px; /* Consistent top padding */
+  background-color: var(--sfq-color-white);
+  min-height: 80vh;
+}
+
+.sfq-container {
+  max-width: 850px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sfq-section-title {
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 70px;
+  color: var(--sfq-color-off-black);
+  position: relative;
+  padding-bottom: 15px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.sfq-section-title.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--sfq-animation-gentle),
+    transform 0.8s var(--sfq-animation-gentle);
+}
+
+.sfq-list {
+  /* No specific list styles, items handle it */
+}
+
+.sfq-item {
+  border-bottom: 1px solid var(--sfq-color-border);
+  opacity: 0;
+  transform: translateY(20px);
+}
+.sfq-item:first-child {
+  border-top: 1px solid var(--sfq-color-border);
+}
+.sfq-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-property: opacity, transform;
+  transition-duration: 0.6s;
+  transition-timing-function: var(--sfq-animation-gentle);
+}
+
+.sfq-question-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 28px 0; /* Generous vertical padding for a spacious feel */
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sfq-font-primary);
+  outline: none;
+}
+.sfq-question-button:focus-visible {
+  background-color: rgba(0, 0, 0, 0.02); /* Very subtle focus */
+}
+
+.sfq-question-text {
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem); /* Slightly larger questions */
+  font-weight: 500; /* Medium weight for questions */
+  color: var(--sfq-color-text-primary);
+  margin-right: 25px;
+  line-height: 1.4;
+  transition: color 0.3s var(--sfq-animation-gentle);
+}
+.sfq-item.is-open .sfq-question-text {
+  /* color: var(--sfq-color-black); Optional: Darken active question text */
+}
+
+.sfq-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.35s var(--sfq-animation-smooth);
+  position: relative;
+}
+.sfq-icon::before,
+.sfq-icon::after {
+  content: "";
+  position: absolute;
+  background-color: var(--sfq-color-icon);
+  transition: transform 0.35s var(--sfq-animation-smooth) 0.05s; /* Slight delay on transform */
+}
+.sfq-icon::before {
+  /* Horizontal bar */
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+.sfq-icon::after {
+  /* Vertical bar */
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  transform: translateX(-50%);
+}
+.sfq-item.is-open .sfq-icon::after {
+  transform: translateX(-50%) rotate(90deg) scaleY(0); /* Hide vertical by scaling to 0 */
+}
+/* Optional: Rotate entire icon if preferred */
+/* .sfq-item.is-open .sfq-icon { transform: rotate(135deg); } */
+
+.sfq-answer-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--sfq-animation-gentle),
+    padding-bottom 0.5s var(--sfq-animation-gentle);
+  padding-left: 5px; /* Slight indent for answer relative to question button's implicit padding */
+  padding-right: 5px;
+}
+.sfq-item.is-open .sfq-answer-content {
+  padding-bottom: 30px; /* Space after answer when open */
+}
+
+.sfq-answer-text p {
+  font-size: clamp(0.9rem, 1.8vw, 1rem); /* Slightly smaller answers */
+  line-height: 1.75; /* Good line height for readability */
+  color: var(--sfq-color-text-secondary);
+  margin: 0;
+  font-weight: 400; /* Regular weight for answers */
+}
+.sfq-answer-text p:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+@media (max-width: 768px) {
+  .sfq-section {
+    padding: 70px 20px 80px;
+  }
+  .sfq-section-title {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+    margin-bottom: 50px;
+  }
+  .sfq-question-button {
+    padding: 22px 0;
+  }
+  .sfq-question-text {
+    font-size: clamp(1rem, 3.5vw, 1.25rem);
+  }
+  .sfq-item.is-open .sfq-answer-content {
+    padding-bottom: 25px;
+  }
+}
