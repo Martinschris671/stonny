@@ -22,9 +22,8 @@
 }
 
 .tst-section {
-  padding: 80px 40px 100px; /* Adjusted top padding */
+  padding: 50px 40px 50px; /* Adjusted top padding */
   background-color: var(--tst-color-white);
-  min-height: 80vh; /* Can be less than 100vh for a content section */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -185,7 +184,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .tst-section {
-    padding: 70px 20px 80px;
+    padding: 50px 20px 50px;
   }
   .tst-section-header {
     margin-bottom: 50px;

@@ -17,9 +17,8 @@
 }
 
 .cfs-section {
-  padding: 80px 40px 100px; /* Reduced top padding */
+  padding: 50px 40px 50px; /* Reduced top padding */
   background-color: var(--cfs-color-white);
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -202,7 +201,7 @@
 
 @media (max-width: 768px) {
   .cfs-section {
-    padding: 70px 20px 80px;
+    padding: 50px 20px 50px;
   }
   .cfs-section-header {
     margin-bottom: 50px;

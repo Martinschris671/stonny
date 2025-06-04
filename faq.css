@@ -12,9 +12,8 @@
 }
 
 .sfq-section {
-  padding: 80px 40px 100px; /* Consistent top padding */
+  padding: 50px 40px 50px; /* Consistent top padding */
   background-color: var(--sfq-color-white);
-  min-height: 80vh;
 }
 
 .sfq-container {
@@ -151,7 +150,7 @@
 
 @media (max-width: 768px) {
   .sfq-section {
-    padding: 70px 20px 80px;
+    padding: 50px 20px 50px;
   }
   .sfq-section-title {
     font-size: clamp(1.8rem, 6vw, 2.2rem);

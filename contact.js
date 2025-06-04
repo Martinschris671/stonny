@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   const formStatusMessage = document.getElementById("formStatusMessage");
 
-  const MY_EMAIL_ADDRESS = "info@stonnyconstructionltd.com"; // !!! REPLACE THIS !!!
+  const MY_EMAIL_ADDRESS = "stonnyconstructltd@gmail.com"; // !!! REPLACE THIS !!!
   const YOUR_NAME_FOR_EMAIL = "STONNY Construction"; // !!! REPLACE THIS for email body !!!
 
   function validateField(field) {

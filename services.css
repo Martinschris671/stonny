@@ -19,9 +19,8 @@
 }
 
 .scg-section {
-  padding: 80px 40px 100px;
+  padding: 50px 40px 50px;
   background-color: var(--scg-color-white);
-  min-height: 100vh;
 }
 .scg-container {
   max-width: 1200px;
@@ -217,7 +216,7 @@
 
 @media (max-width: 768px) {
   .scg-section {
-    padding: 70px 20px 80px;
+    padding: 50px 20px 50px;
   }
   .scg-section-header {
     margin-bottom: 50px;

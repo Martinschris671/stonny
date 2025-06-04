@@ -12,9 +12,8 @@
 }
 
 .aus-section {
-  padding: 70px 40px 120px; /* UPDATED: Reduced top padding */
+  padding: 50px 40px 50px; /* UPDATED: Reduced top padding */
   background-color: var(--aus-color-white);
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -239,7 +238,7 @@
 
 @media (max-width: 768px) {
   .aus-section {
-    padding: 60px 20px 100px;
+    padding: 50px 20px 50px;
   } /* Adjusted top padding for mobile too */
   .aus-section-title-wrapper {
     margin-bottom: 60px;
