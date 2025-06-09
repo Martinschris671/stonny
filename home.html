@@ -22,6 +22,14 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- Importing the specific Google Fonts needed for this logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Raleway:wght@400&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
@@ -533,24 +541,40 @@
           background-position: center 40%; /* Adjust image focus */
         }
       }
-      .logo {
-        font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
-        color: black;
-        user-select: none;
+      .stonny-logo {
+        /* This container helps with alignment */
+        font-family: sans-serif; /* A fallback font */
+        text-align: center;
       }
 
-      .logo .rest {
-        font-size: 3rem; /* Smaller rest of letters */
-        letter-spacing: -4px; /* Tight spacing for logo feel */
+      .stonny-logo .name {
+        font-family: "Oswald", sans-serif;
+        font-weight: 700; /* Bold */
+        font-size: 35px; /* Large and impactful */
+        color: #222222; /* A strong, deep grey instead of pure black */
+        text-transform: uppercase;
+        letter-spacing: -0.5px; /* Slightly tighten for a solid look */
+        line-height: 1;
+        display: block; /* Ensures it sits on its own line */
+      }
+
+      .stonny-logo .tagline {
+        font-family: "Raleway", sans-serif;
+        font-weight: 500; /* Regular weight for elegance */
+        font-size: 8px; /* Smaller for clear hierarchy */
+        color: #666666; /* A softer grey to sit back */
+        text-transform: uppercase;
+        letter-spacing: 3px; /* Wide spacing for a premium, architectural feel */
+        margin-top: 4px; /* Gives perfect breathing room */
+        display: block; /* Ensures it sits on its own line */
       }
     </style>
   </head>
   <body>
     <header class="stonny-site-header" id="siteHeader">
-      <div class="stonny-site-logo logo">
-        <a href="#hero" class="scroll-link">
-          <span class="logo-text rest">Stonny</span></a
-        >
+      <div class="stonny-logo stonny-site-logo">
+        <span class="name">Stonny</span>
+        <span class="tagline">Construction</span>
       </div>
       <nav class="stonny-main-nav" id="mainNav">
         <ul>
