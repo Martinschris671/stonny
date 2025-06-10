@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       location: "Imo Owerri, Nigeria",
       scope:
         "Full architectural design from concept to blueprint, and comprehensive civil engineering oversight for structural integrity and site development. Managed all phases of construction for a luxury residential duplex, including high-end finishes and gatehouse integration.",
-      imageUrl: "images/6BedroomHouse-ID26803-Perspective_2.webp",
+      imageUrl: "project/imo.png",
     },
     {
       id: "client2",
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       location: "Abuja, Karmo",
       scope:
         "Master planning and execution for a large-scale resort complex. This included detailed landscaping design, construction of recreational facilities, guest accommodations, and integrated garden spaces, creating a serene and engaging destination.",
-      imageUrl: "images/resort.webp",
+      imageUrl: "project/impresit.png",
     },
     {
       id: "client3",
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       location: "Imo State, Owerri",
       scope:
         "Turnkey construction of a significant Church Building and adjacent Event Centre. Our responsibilities spanned from foundation work through to the intricate details of the architectural finishing, ensuring a space suitable for large congregations and diverse events.",
-      imageUrl: "images/church.webp",
+      imageUrl: "project/church.png",
     },
     {
       id: "client4",
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       location: "Ogun State",
       scope:
         "Design and build of a large-scale industrial warehousing complex. Focused on robust structural design, optimized logistical flow, integrated office spaces, and durable material selection suitable for heavy-duty operations.",
-      imageUrl: "images/industrial.webp",
+      imageUrl: "project/FQ5hmrAXMAE7npI.jpg",
     },
   ];
 
