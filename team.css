@@ -1,0 +1,242 @@
+:root {
+  --slf-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --slf-color-white: #ffffff;
+  --slf-color-black: #000000;
+  --slf-color-off-black: #111111;
+  --slf-color-text-primary: var(--slf-color-off-black);
+  --slf-color-text-secondary: #444444;
+  --slf-color-text-subtle: #777777;
+  --slf-color-border: #e0e0e0;
+  --slf-color-accent: var(--slf-color-black);
+
+  --slf-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --slf-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --slf-animation-reveal: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.slf-section {
+  padding: 50px 40px 50px;
+  background-color: var(--slf-color-white);
+  overflow: hidden;
+}
+
+.slf-container {
+  max-width: 1100px; /* Good width for two columns or centered content */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.slf-section-header {
+  text-align: center;
+  margin-bottom: 70px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.slf-section-header.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--slf-animation-gentle),
+    transform 0.8s var(--slf-animation-gentle);
+}
+.slf-main-title {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--slf-color-off-black);
+}
+.slf-subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--slf-color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.slf-content-wrapper {
+  display: flex;
+  gap: 60px; /* Gap between logo and team */
+  align-items: center; /* Vertically align content in columns */
+}
+
+.slf-logo-column {
+  flex: 1 1 40%; /* Logo takes about 40% */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center logo and its text */
+  text-align: center;
+  opacity: 0;
+  transform: translateX(-30px) scale(0.95);
+}
+.slf-logo-column.is-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  transition: opacity 0.8s var(--slf-animation-reveal) 0.2s,
+    transform 0.8s var(--slf-animation-reveal) 0.2s;
+}
+
+.slf-logo-graphic-wrapper {
+  width: 100%;
+  max-width: 220px; /* Control max size of logo */
+  margin-bottom: 25px;
+  transition: transform 0.3s var(--slf-animation-gentle);
+}
+.slf-logo-graphic-wrapper:hover {
+  /* transform: scale(1.03); Optional hover effect */
+}
+.slf-logo-graphic-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* --- Style your SVG logo colors here if they are not inline --- */
+  /* Example: fill: var(--slf-color-black); */
+}
+/* Placeholder SVG - REPLACE WITH YOUR ACTUAL LOGO SVG CODE */
+.stonny-logo-svg .house-shape {
+  fill: #2c5b7d;
+} /* Example color from image - USE BLACK/GREY for monochrome */
+.stonny-logo-svg .hammer-shape {
+  fill: #1e3e54;
+}
+.stonny-logo-svg .text-stonny {
+  fill: var(--slf-color-white);
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+.stonny-logo-svg .text-construction {
+  fill: var(--slf-color-black);
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 10px;
+}
+/* FOR STRICT BLACK/WHITE THEME (Recommended): */
+/* .stonny-logo-svg path, .stonny-logo-svg rect, .stonny-logo-svg polygon { fill: var(--slf-color-black) !important; }
+           .stonny-logo-svg text.text-stonny { fill: var(--slf-color-white) !important; } */
+/* This assumes your SVG paths/texts have appropriate classes or you target them generally. */
+
+.slf-logo-tagline {
+  font-size: 0.9rem;
+  color: var(--slf-color-text-subtle);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.slf-team-column {
+  flex: 1 1 60%; /* Team takes about 60% */
+  opacity: 0;
+  transform: translateX(30px) scale(0.95);
+}
+.slf-team-column.is-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  transition: opacity 0.8s var(--slf-animation-reveal) 0.4s,
+    transform 0.8s var(--slf-animation-reveal) 0.4s;
+}
+
+.slf-team-member {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--slf-color-border);
+  cursor: pointer;
+  transition: background-color 0.2s var(--slf-animation-gentle);
+}
+.slf-team-member:first-child {
+  padding-top: 0;
+}
+.slf-team-member:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.slf-team-member:hover {
+  background-color: #fafafa; /* Very subtle hover for the row */
+}
+
+.slf-member-portrait {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #e0e0e0;
+  transition: transform 0.3s var(--slf-animation-gentle);
+}
+.slf-team-member:hover .slf-member-portrait {
+  transform: scale(1.05);
+}
+.slf-member-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slf-member-info {
+  flex-grow: 1;
+}
+.slf-member-name {
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  color: var(--slf-color-text-primary);
+  margin-bottom: 2px;
+}
+.slf-member-title {
+  font-size: 0.85rem;
+  color: var(--slf-color-text-secondary);
+  font-weight: 500;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.slf-member-bio {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--slf-color-text-secondary);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s var(--slf-animation-gentle),
+    opacity 0.3s var(--slf-animation-gentle) 0.1s,
+    margin-top 0.45s var(--slf-animation-gentle);
+}
+.slf-team-member.is-active .slf-member-bio {
+  max-height: 150px; /* Adjust as needed */
+  opacity: 1;
+  margin-top: 8px;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .slf-content-wrapper {
+    flex-direction: column;
+    gap: 50px;
+    align-items: center; /* Center items when stacked */
+  }
+  .slf-logo-column,
+  .slf-team-column {
+    flex-basis: auto;
+    width: 100%;
+    max-width: 500px; /* Limit width of stacked columns */
+  }
+  .slf-logo-column {
+    margin-bottom: 30px; /* Space below logo when stacked */
+    align-items: center;
+  }
+  .slf-team-column {
+    padding-left: 0; /* Remove padding if centered */
+  }
+}
+@media (max-width: 480px) {
+  .slf-section {
+    padding: 30px 20px 30px;
+  }
+  .slf-section-header {
+    margin-bottom: 50px;
+  }
+  .slf-main-title {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+  }
+  .slf-logo-graphic-wrapper {
+    max-width: 180px;
+  }
+}
