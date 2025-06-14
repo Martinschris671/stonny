@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STONNY - Projects Showcase</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+      :root {
+        --pshp-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        --pshp-color-white: #ffffff;
+        --pshp-color-off-black: #111111;
+        --pshp-color-text-primary: var(--pshp-color-off-black);
+        --pshp-color-text-secondary: #484848;
+        --pshp-color-text-meta: #777777;
+        --pshp-color-border-subtle: #eaeaea;
+        --pshp-color-card-bg: var(--pshp-color-white);
+        --pshp-color-card-shadow: rgba(0, 0, 0, 0.05);
+        --pshp-color-card-shadow-hover: rgba(0, 0, 0, 0.12);
+        --pshp-color-skeleton-bg: #f0f0f0;
+
+        /* --- THE DEFINITIVE ULTRA-SMOOTH ANIMATION PHYSICS --- */
+        --pshp-ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        --pshp-ease-definitive: cubic-bezier(0.76, 0, 0.24, 1);
+
+        --pshp-page-header-height: 65px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: var(--pshp-font-primary);
+        background-color: var(--pshp-color-white);
+        color: var(--pshp-color-text-primary);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      .pshp-page-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--pshp-page-header-height);
+        background-color: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--pshp-color-border-subtle);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(-100%);
+        animation: pshp-slideInHeader 1s var(--pshp-ease-out-quart) 0.2s
+          forwards;
+        will-change: transform, opacity;
+      }
+      @keyframes pshp-slideInHeader {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .pshp-page-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+      .pshp-back-link {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--pshp-color-text-secondary);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        transition: color 0.8s var(--pshp-ease-definitive);
+      }
+      .pshp-back-link:hover {
+        color: var(--pshp-color-text-primary);
+      }
+      .pshp-back-link svg {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        fill: currentColor;
+      }
+
+      .pshp-section {
+        padding: calc(var(--pshp-page-header-height) + 100px) 40px 120px;
+      }
+      .pshp-container {
+        max-width: 1250px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .pshp-projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+        gap: 40px;
+      }
+
+      /* --- THE DEFINITIVE CARD ENGINE --- */
+      .pshp-project-card {
+        display: grid;
+        grid-template-rows: auto 0fr;
+        background-color: var(--pshp-color-card-bg);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px var(--pshp-color-card-shadow);
+        cursor: pointer;
+        position: relative;
+        transition: transform 1s var(--pshp-ease-definitive),
+          box-shadow 1s var(--pshp-ease-definitive),
+          grid-template-rows 1s var(--pshp-ease-definitive);
+        will-change: transform, box-shadow, grid-template-rows;
+      }
+      .pshp-project-card:hover:not(.is-expanded) {
+        transform: translateY(-8px);
+        box-shadow: 0 14px 35px var(--pshp-color-card-shadow-hover);
+      }
+      .pshp-project-card.is-expanded {
+        grid-template-rows: auto 1fr;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        cursor: default;
+      }
+
+      .pshp-card-top-section {
+        overflow: hidden;
+      }
+
+      .pshp-card-image-area {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        display: flex;
+      }
+      .pshp-card-image-area::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.85) 0%,
+          rgba(0, 0, 0, 0.4) 40%,
+          transparent 70%
+        );
+        z-index: 1;
+        opacity: 1;
+        transition: opacity 1s var(--pshp-ease-definitive);
+        will-change: opacity;
+      }
+      .pshp-project-card.is-expanded .pshp-card-image-area::before {
+        opacity: 0.5;
+      }
+      .pshp-card-bg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        will-change: transform;
+        transition: transform 1.5s var(--pshp-ease-out-quart);
+      }
+      .pshp-project-card:hover:not(.is-expanded) .pshp-card-bg-image {
+        transform: scale(1.03);
+      }
+      .pshp-project-card.is-expanded .pshp-card-bg-image {
+        transform: scale(1.05);
+      }
+
+      .pshp-card-image-overlay-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 18px 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .pshp-project-number-preview {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .pshp-project-title-preview {
+        font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+        font-weight: 700;
+        color: var(--pshp-color-white);
+        line-height: 1.25;
+      }
+      .pshp-card-overlay-bottom-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .pshp-project-location-text-on-image {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .pshp-explore-cue {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        will-change: transform;
+        transition: transform 1s var(--pshp-ease-definitive),
+          background-color 0.8s var(--pshp-ease-definitive);
+      }
+      .pshp-explore-cue::before,
+      .pshp-explore-cue::after {
+        content: "";
+        position: absolute;
+        background-color: var(--pshp-color-white);
+        will-change: transform;
+        transition: transform 1s var(--pshp-ease-definitive);
+      }
+      .pshp-explore-cue::before {
+        width: 14px;
+        height: 2px;
+      }
+      .pshp-explore-cue::after {
+        width: 2px;
+        height: 14px;
+      }
+      .pshp-project-card:hover .pshp-explore-cue {
+        transform: scale(1.1);
+        background-color: rgba(255, 255, 255, 0.25);
+      }
+      .pshp-project-card.is-expanded .pshp-explore-cue {
+        transform: rotate(225deg);
+      }
+      .pshp-project-card.is-expanded .pshp-explore-cue::after {
+        transform: rotate(90deg);
+      }
+
+      .pshp-card-detail-pane {
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.8s var(--pshp-ease-definitive) 0.3s;
+        will-change: opacity;
+      }
+      .pshp-project-card.is-expanded .pshp-card-detail-pane {
+        opacity: 1;
+      }
+      .pshp-card-detail-content {
+        padding: 25px 25px 30px;
+        border-top: 1px solid var(--pshp-color-border-subtle);
+      }
+      .pshp-detail-scope p {
+        font-size: 0.9rem;
+        line-height: 1.65;
+        color: var(--pshp-color-text-secondary);
+        margin-bottom: 0.7em;
+      }
+      .pshp-mini-gallery {
+        margin-top: 25px;
+      }
+      .pshp-mini-gallery-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--pshp-color-text-meta);
+        margin-bottom: 12px;
+      }
+      .pshp-mini-gallery-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 8px;
+      }
+      .pshp-mini-gallery-img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid var(--pshp-color-border-subtle);
+        will-change: transform, opacity;
+        transition: opacity 0.8s var(--pshp-ease-definitive),
+          transform 0.8s var(--pshp-ease-definitive);
+      }
+      .pshp-mini-gallery-img:hover {
+        opacity: 0.85;
+        transform: scale(1.05);
+      }
+
+      /* SCROLL-TO-LOAD SYSTEM */
+      .pshp-card-placeholder {
+        min-height: 350px;
+        opacity: 0;
+        transition: opacity 0.5s linear;
+      }
+      .pshp-card-placeholder.is-visible {
+        opacity: 1;
+      }
+      .skeleton-card {
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px var(--pshp-color-card-shadow);
+        background: var(--pshp-color-card-bg);
+      }
+      .skeleton-image {
+        aspect-ratio: 4 / 3;
+        background-color: var(--pshp-color-skeleton-bg);
+        animation: pulse 2s var(--pshp-ease-definitive) infinite;
+      }
+      .skeleton-text-band {
+        padding: 16px 25px;
+        background-color: var(--pshp-color-location-bg);
+      }
+      .skeleton-text {
+        height: 10px;
+        width: 50%;
+        background-color: var(--pshp-color-skeleton-bg);
+        border-radius: 4px;
+        animation: pulse 2s var(--pshp-ease-definitive) infinite;
+      }
+      @keyframes pulse {
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      .pshp-project-card.is-loaded {
+        animation: fadeInLoadedCard 1.5s var(--pshp-ease-out-quart) forwards;
+      }
+      @keyframes fadeInLoadedCard {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .pshp-page-header {
+          padding: 0 20px;
+          height: calc(var(--pshp-page-header-height) - 10px);
+        }
+        .pshp-section {
+          padding: calc(var(--pshp-page-header-height) + 20px) 20px 60px;
+        }
+        .pshp-projects-grid {
+          gap: 20px;
+          grid-template-columns: 1fr;
+        }
+        .pshp-card-placeholder {
+          min-height: 320px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="pshp-page-header">
+      <h1 class="pshp-page-title">Projects</h1>
+      <a href="home.html" class="pshp-back-link">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Back to Home
+      </a>
+    </header>
+    <main class="pshp-section">
+      <div class="pshp-container">
+        <div class="pshp-projects-grid" id="projectsGridShowcase">
+          <!-- Placeholders injected by JS -->
+        </div>
+      </div>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const projectsGrid = document.getElementById("projectsGridShowcase");
+        let currentlyOpenCard = null;
+
+        const projectsData = [
+          // --- REVISED & GROUNDED PROJECTS ---
+          {
+            id: "psc1",
+            number: "01",
+            title: "Victoria Island Offices",
+            location: "Lagos, Nigeria",
+            mainImage: "project-image/office.jpeg",
+            galleryImages: [
+              "project-image/office2.jpeg",
+              "project-image/office3.jpeg",
+            ],
+            scope:
+              "Development of a Grade-A commercial tower featuring 12 floors of flexible office space, advanced facade engineering, and integrated building management systems.",
+          },
+          {
+            id: "psc2",
+            number: "02",
+            title: "Banana Island Residences",
+            location: "Lagos, Nigeria",
+            mainImage: "project-image/luxury.jpeg",
+            galleryImages: [
+              "project-image/luxury2.jpg",
+              "project-image/luxury3.jpeg",
+            ],
+            scope:
+              "An exclusive gated community of 10 luxury villas, focusing on privacy, bespoke joinery, waterfront views, and premium interior finishes.",
+          },
+          {
+            id: "psc3",
+            number: "03",
+            title: "Asaba Retail Pavilion",
+            location: "Asaba, Delta State",
+            mainImage: "project-image/asaba.jpeg",
+            galleryImages: [
+              "project-image/asaba2.jpeg",
+              "project-image/asaba3.jpeg",
+            ],
+            scope:
+              "Construction of a high-end, open-plan retail space designed for luxury brands, emphasizing natural light, premium materials, and flexible tenant fit-outs.",
+          },
+          {
+            id: "psc4",
+            number: "04",
+            title: "Ogun Agro-Processing Facility",
+            location: "Ogun State, Nigeria",
+            mainImage: "project-image/agro.jpeg",
+            galleryImages: [
+              "project-image/agro2.jpeg",
+              "project-image/agro3.jpeg",
+            ],
+            scope:
+              "Design and build of a large-scale agricultural processing and storage complex, focused on robust structural integrity, temperature control, and optimized logistical flow.",
+          },
+          {
+            id: "psc5",
+            number: "05",
+            title: "Maitama Terraced Duplexes",
+            location: "Abuja, FCT",
+            mainImage: "project-image/ter.jpeg",
+            galleryImages: [
+              "project-image/ter2.jpeg",
+              "project-image/ter3.jpeg",
+            ],
+            scope:
+              "Construction of a contemporary apartment complex offering luxury living with private terraces and premium amenities in the Maitama district.",
+          },
+          {
+            id: "psc6",
+            number: "06",
+            title: "Ibeju-Lekki Logistics Hub",
+            location: "Lagos, Nigeria",
+            mainImage: "project-image/log.jpeg",
+            galleryImages: [
+              "project-image/log2.jpeg",
+              "project-image/log3.jpeg",
+            ],
+            scope:
+              "Building a strategic logistics and warehousing facility to support the Lekki Free Trade Zone and regional commerce.",
+          },
+          {
+            id: "psc7",
+            number: "07",
+            title: "Jabi Lakefront Restaurant",
+            location: "Abuja, FCT",
+            mainImage: "project-image/res.jpeg",
+            galleryImages: [
+              "project-image/res2.jpeg",
+              "project-image/res3.jpg",
+            ],
+            scope:
+              "Construction of a signature fine-dining restaurant featuring complex architectural glasswork and panoramic views of Jabi Lake.",
+          },
+          {
+            id: "psc8",
+            number: "08",
+            title: "Kano Modern Market",
+            location: "Kano, Kano State",
+            mainImage: "project-image/mar.jpeg",
+            galleryImages: [
+              "project-image/mar2.jpeg",
+              "project-image/mar3.jpeg",
+            ],
+            scope:
+              "Redevelopment of a major urban market, improving infrastructure, vendor stalls, and public amenities to create a vibrant, modern commercial hub.",
+          },
+          {
+            id: "psc9",
+            number: "09",
+            title: "Lead City University Library",
+            location: "Ibadan, Oyo State",
+            mainImage: "project-image/lib.jpg",
+            galleryImages: [
+              "project-image/lib2.jpeg",
+              "project-image/lib3.jpeg",
+            ],
+            scope:
+              "Construction of a new university library, focusing on modern academic design, quiet zones, and collaborative digital-ready spaces.",
+          },
+          {
+            id: "psc10",
+            number: "10",
+            title: "Calabar Boutique Hotel",
+            location: "Calabar, Cross River State",
+            mainImage: "project-image/hot.jpeg",
+            galleryImages: [
+              "project-image/hot2.jpeg",
+              "project-image/hot3.jpg",
+            ],
+            scope:
+              "Design and construction of a unique 50-room boutique hotel, reflecting local culture and providing a luxurious retreat for travelers.",
+          },
+          {
+            id: "psc11",
+            number: "11",
+            title: "Kaduna Inland Port Expansion",
+            location: "Kaduna, Kaduna State",
+            mainImage: "project-image/port.jpeg",
+            galleryImages: [
+              "project-image/port2.jpeg",
+              "project-image/port3.jpeg",
+            ],
+            scope:
+              "Phase 2 civil engineering and construction for the expansion of an inland port facility, improving national logistics and trade infrastructure.",
+          },
+          {
+            id: "psc12",
+            number: "12",
+            title: "Enugu Tech Hub",
+            location: "Enugu, Enugu State",
+            mainImage: "project-image/tech.jpeg",
+            galleryImages: [
+              "project-image/tech2.jpeg",
+              "project-image/tech3.jpeg",
+            ],
+            scope:
+              "Development of a modern technology park with office spaces, labs, and collaborative areas to foster innovation in the South-East.",
+          },
+          {
+            id: "psc13",
+            number: "13",
+            title: "Benin Specialist Hospital Wing",
+            location: "Benin City, Edo State",
+            mainImage: "project-image/benin.jpeg",
+            galleryImages: [
+              "project-image/benin2.jpeg",
+              "project-image/benin3.jpeg",
+            ],
+            scope:
+              "Construction of a new specialist wing for a private hospital, requiring specialized M&E services and adherence to strict healthcare standards.",
+          },
+          // --- UNCHANGED PROJECTS AS REQUESTED ---
+          {
+            id: "psc14",
+            number: "14",
+            title: "Six Bedroom Duplex",
+            location: "Imo Owerri, Nigeria",
+            mainImage: "images/6BedroomHouse-ID26803-Perspective_2.webp",
+            galleryImages: [
+              "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=70",
+              "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=70",
+            ],
+            scope:
+              "Full architectural design and civil engineering for a luxury residential duplex, including gatehouse and exterior landscaping.",
+          },
+          {
+            id: "psc15",
+            number: "15",
+            title: "Impresit Resort",
+            location: "Abuja, Karmo, Nigeria",
+            mainImage: "images/resort.webp",
+            galleryImages: [
+              "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=70",
+              "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=70",
+            ],
+            scope:
+              "Development of a serene resort complex, featuring guest accommodations, recreational zones, and extensive landscaping.",
+          },
+          {
+            id: "psc16",
+            number: "16",
+            title: "Heroes Faith Church",
+            location: "Imo State, Owerri, Nigeria",
+            mainImage: "images/church.webp",
+            galleryImages: [
+              "https://images.unsplash.com/photo-1592188192204-d7537682865f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=70",
+              "https://images.unsplash.com/photo-1488998527040-7da096df027e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=70",
+            ],
+            scope:
+              "Construction of a large-capacity Church Building and an adjoining Event Centre, encompassing complex structural work and detailed interior finishing.",
+          },
+        ];
+
+        function createProjectCard(project) {
+          const card = document.createElement("article");
+          card.className = "pshp-project-card";
+          card.innerHTML = `
+                <div class="pshp-card-top-section">
+                    <div class="pshp-card-image-area">
+                        <img src="${project.mainImage}" alt="${
+            project.title
+          } Main View" class="pshp-card-bg-image" loading="lazy">
+                        <div class="pshp-card-image-overlay-content">
+                            <div class="pshp-card-overlay-top-row">
+                                <span class="pshp-project-number-preview">${
+                                  project.number
+                                }</span>
+                                <h3 class="pshp-project-title-preview">${
+                                  project.title
+                                }</h3>
+                            </div>
+                            <div class="pshp-card-overlay-bottom-row">
+                                <p class="pshp-project-location-text-on-image">${
+                                  project.location
+                                }</p>
+                                <div class="pshp-explore-cue"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pshp-card-detail-pane">
+                    <div class="pshp-card-detail-content">
+                        <div class="pshp-detail-scope"><p>${project.scope.replace(
+                          /\n/g,
+                          "</p><p>"
+                        )}</p></div>
+                        <div class="pshp-mini-gallery"><h4 class="pshp-mini-gallery-title">More Views</h4><div class="pshp-mini-gallery-images">${project.galleryImages
+                          .map(
+                            (img) =>
+                              `<img src="${img}" alt="${project.title} gallery image" class="pshp-mini-gallery-img" loading="lazy">`
+                          )
+                          .join("")}</div></div>
+                    </div>
+                </div>
+            `;
+          card.addEventListener("click", (e) => {
+            if (e.target.classList.contains("pshp-mini-gallery-img")) {
+              return;
+            }
+            const isOpening = !card.classList.contains("is-expanded");
+            if (currentlyOpenCard && currentlyOpenCard !== card) {
+              currentlyOpenCard.classList.remove("is-expanded");
+            }
+            card.classList.toggle("is-expanded");
+            if (isOpening) {
+              currentlyOpenCard = card;
+              setTimeout(() => {
+                card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+              }, 600);
+            } else {
+              if (currentlyOpenCard === card) currentlyOpenCard = null;
+            }
+          });
+          return card;
+        }
+
+        function initializePage() {
+          if (!projectsGrid) return;
+          projectsData.forEach((project, index) => {
+            const placeholder = document.createElement("div");
+            placeholder.className = "pshp-card-placeholder";
+            placeholder.dataset.index = index;
+            projectsGrid.appendChild(placeholder);
+          });
+          const observer = new IntersectionObserver(
+            (entries, observerInstance) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  const placeholder = entry.target;
+                  observerInstance.unobserve(placeholder);
+                  placeholder.classList.add("is-visible");
+                  placeholder.innerHTML = `<div class="skeleton-card"><div class="skeleton-image"></div><div class="skeleton-text-band"><div class="skeleton-text"></div></div></div>`;
+                  setTimeout(() => {
+                    const projectIndex = parseInt(
+                      placeholder.dataset.index,
+                      10
+                    );
+                    const realCard = createProjectCard(
+                      projectsData[projectIndex]
+                    );
+                    placeholder.replaceWith(realCard);
+                    requestAnimationFrame(() => {
+                      realCard.classList.add("is-loaded");
+                    });
+                  }, 1200);
+                }
+              });
+            },
+            { root: null, rootMargin: "0px", threshold: 0.1 }
+          );
+          document.querySelectorAll(".pshp-card-placeholder").forEach((el) => {
+            observer.observe(el);
+          });
+        }
+        initializePage();
+      });
+    </script>
+  </body>
+</html>
