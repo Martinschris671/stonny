@@ -1,0 +1,100 @@
+/* --- Provided CSS Variables & Base Styles --- */
+:root {
+  --ocg-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ocg-color-white: #ffffff;
+  --ocg-color-black: #000000;
+  --ocg-color-off-black: #111111;
+  --ocg-color-text-primary: var(--ocg-color-off-black);
+  --ocg-color-text-secondary: #444444;
+  --ocg-color-text-cta: var(--ocg-color-black);
+  --ocg-color-border: #eaeaea;
+  --ocg-color-card-bg: var(--ocg-color-white);
+
+  /* --- THE DEFINITIVE ULTRA-SMOOTH ANIMATION CURVE --- */
+  --ocg-animation-definitive: cubic-bezier(0.76, 0, 0.24, 1);
+  /* A slightly different curve for the arrow's "kick" */
+  --ocg-animation-anticipatory: cubic-bezier(0.64, 0, 0.78, 0);
+}
+
+/* 
+        ================================================================
+        THE NEW "EXPLORE MORE PROJECTS" BUTTON
+        This is the only new section. It's designed to be placed
+        after your .ocg-client-grid.
+        ================================================================
+        */
+.ocg-section-footer {
+  text-align: center;
+  /* Creates significant, premium spacing after the grid content */
+  margin-top: 50px;
+}
+
+.ocg-explore-all-btn {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 10px; /* Generous padding for a larger click/hover area */
+  text-decoration: none;
+  color: var(--ocg-color-text-cta);
+  position: relative; /* Crucial for the underline pseudo-element */
+
+  /* The "Magnetic Lift" animation */
+  transition: transform 0.8s var(--ocg-animation-definitive);
+  will-change: transform;
+}
+
+.ocg-explore-all-btn:hover,
+.ocg-explore-all-btn:focus-visible {
+  /* A modern pseudo-class for keyboard accessibility */
+  transform: translateY(-5px);
+  outline: none; /* Remove default focus outline in favor of our custom style */
+}
+
+.ocg-explore-all-btn span {
+  font-size: 1rem; /* A slightly larger, more confident font size */
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* The "Liquid Underline" */
+.ocg-explore-all-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+
+  /* Initial state: invisible and scaled to zero */
+  transform: scaleX(0);
+  transform-origin: left; /* Animation originates from the left */
+
+  /* The underline has its own fluid transition */
+  transition: transform 1s var(--ocg-animation-definitive);
+  will-change: transform;
+}
+
+.ocg-explore-all-btn:hover::after,
+.ocg-explore-all-btn:focus-visible::after {
+  transform: scaleX(1); /* Expands to full width on hover/focus */
+}
+
+/* The "Anticipatory Arrow" */
+.ocg-explore-all-btn svg {
+  width: 18px;
+  height: 18px;
+  margin-left: 10px;
+  fill: currentColor;
+
+  /* The arrow uses a unique animation for a more realistic feel */
+  transition: transform 0.8s var(--ocg-animation-anticipatory);
+  will-change: transform;
+}
+
+.ocg-explore-all-btn:hover svg,
+.ocg-explore-all-btn:focus-visible svg {
+  transform: translateX(6px); /* Moves forward on hover */
+}
